@@ -1,11 +1,11 @@
 FROM scratch
 
-COPY --from=blackbox-exporter / /
-COPY --from=node-exporter / /
-COPY --from=pushgateway / /
-COPY --from=cadvisor / /
-COPY --from=prometheus / /
-COPY --from=grafana / /
+COPY --link --from=blackbox-exporter / /
+COPY --link --from=node-exporter / /
+COPY --link --from=pushgateway / /
+COPY --link --from=cadvisor / /
+COPY --link --from=prometheus / /
+COPY --link --from=grafana / /
 
 # blackbox-exporter
 EXPOSE 9115/tcp

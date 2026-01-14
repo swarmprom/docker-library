@@ -1,8 +1,8 @@
 FROM scratch
 
-COPY --from=blackbox-exporter / /
-COPY --from=node-exporter / /
-COPY --from=cadvisor / /
+COPY --link --from=blackbox-exporter / /
+COPY --link --from=node-exporter / /
+COPY --link --from=cadvisor / /
 
 # blackbox-exporter
 EXPOSE 9115/tcp
