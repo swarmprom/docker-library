@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# if [ ! -f "/etc/machine-id" ]; then
+#     if [[ -n "${DOCKER_NODE_ID}" ]]; then
+#         echo "${DOCKER_NODE_ID}" > /etc/machine-id
+#         echo "The /etc/machine-id file is missing. Using DOCKER_NODE_ID as machine-id... ($(cat /etc/machine-id))"
+#         exit 0
+#     fi
+#     uuidgen > /etc/machine-id
+#     echo "The /etc/machine-id file is missing. Synthesizing a new machine-id... ($(cat /etc/machine-id))"
+# fi
+exit 0
