@@ -13,12 +13,15 @@ EXPOSE 9115/tcp
 EXPOSE 8080/tcp
 # grafana
 EXPOSE 3000/tcp
+VOLUME [ "/data/grafana" ]
 # node-exporter
 EXPOSE 9100/tcp
 # prometheus
 EXPOSE 9090/tcp
+VOLUME [ "/data/prometheus" ]
 # pushgateway
 EXPOSE 9091/tcp
+
 
 ENTRYPOINT [ "/init-shim" ]
 CMD [ "sleep", "infinity" ]
