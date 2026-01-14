@@ -4,8 +4,11 @@ FROM socheatsok78/s6-overlay:${S6_VERSION}-symlinks AS s6-overlay-symlinks
 
 # This is your final image
 FROM alpine:latest
+
 ADD rootfs /
-RUN chmod +x /init-shim
+RUN chmod +x /init-shim && \
+    apk add --no-cache ca-certificates bash uuidgen && \
+    rm -rf /var/cache/apk/*
 
 # Overlay the s6-overlay files to the root filesystem
 # The order of this is up to you, but generally, you want to copy the main s6-overlay first,
