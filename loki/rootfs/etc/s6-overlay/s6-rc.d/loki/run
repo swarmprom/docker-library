@@ -1,0 +1,3 @@
+#!/command/execlineb -P
+loki \
+	--config.file=/etc/loki/config.yaml

@@ -33,6 +33,7 @@ group "default" {
         "blackbox-exporter",
         "cadvisor",
         "grafana",
+        "loki",
         "node-exporter",
         "opentelemetry-collector",
         "prometheus",
@@ -120,6 +121,19 @@ target "grafana" {
     tags = [
         dockerhub("grafana", "latest"),
         ghcr("grafana", "latest"),
+    ]
+}
+
+target "loki" {
+    inherits = [ "dockerfile" ]
+    context = "loki"
+    contexts = {
+      "base" = "target:alpine"
+    }
+    args = {}
+    tags = [
+        dockerhub("loki", "latest"),
+        ghcr("loki", "latest"),
     ]
 }
 
