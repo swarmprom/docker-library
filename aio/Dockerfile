@@ -31,5 +31,6 @@ VOLUME [ "/data/pyroscope" ]
 EXPOSE 3200/tcp
 VOLUME [ "/data/tempo"]
 
+ADD rootfs /
 ENTRYPOINT [ "/init-shim" ]
 CMD [ "sleep", "infinity" ]
