@@ -1,3 +1,4 @@
-# This will be replaced during the build process
-# COPY --from=grafana /run.sh /etc/s6-overlay/s6-rc.d/grafana/run
-# See Dockerfile
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+source /var/grafana/default
+grafana-run

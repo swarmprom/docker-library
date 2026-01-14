@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC1091
+source /var/grafana/default
 
 if [ ! $(getent group "$GF_GID") ]; then
 	if grep -i -q alpine /etc/issue; then

@@ -1,0 +1,10 @@
+export GF_UID="472"
+export GF_GID="0"
+export GF_PATHS_CONFIG="${GF_PATHS_CONFIG:-/etc/grafana/grafana.ini}"
+export GF_PATHS_DATA="${GF_PATHS_DATA:-/var/lib/grafana}"
+export GF_PATHS_HOME="${GF_PATHS_HOME:-/usr/share/grafana}"
+export GF_PATHS_LOGS="${GF_PATHS_LOGS:-/var/log/grafana}"
+export GF_PATHS_PLUGINS="${GF_PATHS_PLUGINS:-/var/lib/grafana/plugins}"
+export GF_PATHS_PROVISIONING="${GF_PATHS_PROVISIONING:-/etc/grafana/provisioning}"
+
+export PATH="/usr/share/grafana/bin:$PATH"

@@ -36,6 +36,6 @@ RUN if grep -i -q alpine /etc/issue && [ `arch` = "x86_64" ]; then \
     fi
 
 COPY --from=grafana /usr/share/grafana /usr/share/grafana
-COPY --from=grafana /run.sh /etc/s6-overlay/s6-rc.d/grafana/run
+COPY --from=grafana /run.sh /usr/local/bin/grafana-run
 
 EXPOSE 3000/tcp
