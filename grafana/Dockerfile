@@ -1,4 +1,4 @@
-FROM docker.io/grafana/grafana:11.6.1 AS grafana
+FROM docker.io/grafana/grafana:12.3 AS grafana
 
 FROM base
 ADD rootfs /

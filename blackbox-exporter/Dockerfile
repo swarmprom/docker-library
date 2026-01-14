@@ -1,4 +1,4 @@
-FROM docker.io/prom/blackbox-exporter:v0.26.0 AS blackbox-exporter
+FROM docker.io/prom/blackbox-exporter:v0.28.0 AS blackbox-exporter
 
 FROM base
 ADD rootfs /

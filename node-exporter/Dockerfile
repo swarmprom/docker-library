@@ -1,4 +1,4 @@
-FROM docker.io/prom/node-exporter:v1.9.1 AS node-exporter
+FROM docker.io/prom/node-exporter:v1.10.2 AS node-exporter
 
 FROM base
 ADD rootfs /

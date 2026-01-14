@@ -1,4 +1,4 @@
-FROM docker.io/prom/prometheus:v3.3.0 AS prometheus
+FROM docker.io/prom/prometheus:v3.9.1 AS prometheus
 
 FROM base
 ADD rootfs /
