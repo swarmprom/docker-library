@@ -1,3 +1,7 @@
+FROM docker.io/prom/node-exporter:v1.9.1 AS node-exporter
+
 FROM base
-# FROM docker.io/prom/node-exporter:v1.9.1
 ADD rootfs /
+
+COPY --from=node-exporter /bin/node_exporter /usr/local/bin/node_exporter
+EXPOSE 9100

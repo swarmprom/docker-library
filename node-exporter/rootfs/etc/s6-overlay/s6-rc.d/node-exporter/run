@@ -1,0 +1,9 @@
+#!/command/execlineb -P
+node_exporter \
+	--path.rootfs=/rootfs/root \
+	--path.sysfs=/rootfs/sys \
+	--path.procfs=/rootfs/proc \
+	--path.udev.data=/rootfs/root/run/udev/data \
+	--collector.textfile.directory=/etc/node-exporter \
+	--collector.filesystem.mount-points-exclude=^/\(sys\|proc\|dev\|host\|etc\)\(\$\|/\) \
+	--no-collector.ipvs

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+mkdir -p /rootfs/root
+mkdir -p /rootfs/sys
+mkdir -p /rootfs/proc
