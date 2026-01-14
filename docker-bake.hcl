@@ -59,10 +59,14 @@ target "aio" {
     contexts = {
       "blackbox-exporter" = "target:blackbox-exporter"
       "cadvisor" = "target:cadvisor"
-      "node-exporter" = "target:node-exporter"
-      "pushgateway" = "target:pushgateway"
-      "prometheus" = "target:prometheus"
       "grafana" = "target:grafana"
+      "loki" = "target:loki"
+      "node-exporter" = "target:node-exporter"
+      "opentelemetry-collector" = "target:opentelemetry-collector"
+      "prometheus" = "target:prometheus"
+      "pushgateway" = "target:pushgateway"
+      "pyroscope" = "target:pyroscope"
+      "tempo" = "target:tempo"
     }
     args = {}
     tags = [
