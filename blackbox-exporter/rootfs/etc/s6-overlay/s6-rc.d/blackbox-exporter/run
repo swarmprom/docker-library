@@ -1,2 +1,3 @@
 #!/command/execlineb -P
-blackbox_exporter --config.file=/etc/blackbox_exporter/config.yml
+blackbox_exporter \
+	--config.file=/etc/blackbox_exporter/config.yml
