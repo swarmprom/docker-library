@@ -81,3 +81,5 @@ RUN if [ ! $(getent group "$GF_GID") ]; then \
 COPY --from=grafana /run.sh /etc/s6-overlay/s6-rc.d/grafana/run
 
 RUN mkdir -p /etc/grafana/dashboards
+
+EXPOSE 3000/tcp

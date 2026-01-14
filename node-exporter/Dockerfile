@@ -4,4 +4,4 @@ FROM base
 ADD rootfs /
 
 COPY --from=node-exporter /bin/node_exporter /usr/local/bin/node_exporter
-EXPOSE 9100
+EXPOSE 9100/tcp

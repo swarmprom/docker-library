@@ -9,4 +9,4 @@ RUN apk --no-cache add libc6-compat device-mapper findutils ndctl thin-provision
     rm -rf /var/cache/apk/*
 COPY --from=cadvisor /usr/local/lib/libpfm.so* /usr/local/lib/
 COPY --from=cadvisor /usr/bin/cadvisor /usr/local/bin/cadvisor
-EXPOSE 8080
+EXPOSE 8080/tcp
