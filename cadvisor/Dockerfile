@@ -1,4 +1,12 @@
+FROM ghcr.io/google/cadvisor:0.55 AS cadvisor
+
 FROM base
-# FROM gcr.io/cadvisor/cadvisor:v0.52.1
 ADD rootfs /
-CMD ["--v=0", "--docker_only", "--housekeeping_interval=15s", "--max_housekeeping_interval=1m", "--update_machine_info_interval=15s"]
+
+# https://github.com/google/cadvisor/blob/master/deploy/Dockerfile
+RUN apk --no-cache add libc6-compat device-mapper findutils ndctl thin-provisioning-tools zfs && \
+    echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
+    rm -rf /var/cache/apk/*
+COPY --from=cadvisor /usr/local/lib/libpfm.so* /usr/local/lib/
+COPY --from=cadvisor /usr/bin/cadvisor /usr/local/bin/cadvisor
+EXPOSE 8080
