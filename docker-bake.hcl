@@ -28,6 +28,7 @@ target "dockerfile" {
 
 group "default" {
   targets = [
+        "aio",
         "blackbox-exporter",
         "cadvisor",
         "grafana",
@@ -44,6 +45,24 @@ target "alpine" {
     tags = [
         dockerhub("alpine", "latest"),
         ghcr("alpine", "latest"),
+    ]
+}
+
+target "aio" {
+    inherits = [ "dockerfile" ]
+    context = "aio"
+    contexts = {
+      "blackbox-exporter" = "target:blackbox-exporter"
+      "cadvisor" = "target:cadvisor"
+      "node-exporter" = "target:node-exporter"
+      "pushgateway" = "target:pushgateway"
+      "prometheus" = "target:prometheus"
+      "grafana" = "target:grafana"
+    }
+    args = {}
+    tags = [
+        dockerhub("aio", "latest"),
+        ghcr("aio", "latest"),
     ]
 }
 
