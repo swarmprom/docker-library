@@ -11,3 +11,4 @@ COPY --from=prometheus /NOTICE /usr/share/prometheus/NOTICE
 COPY --from=prometheus /npm_licenses.tar.bz2 /usr/share/prometheus/npm_licenses.tar.bz2
 
 EXPOSE 9090/tcp
+VOLUME [ "/data/prometheus" ]
