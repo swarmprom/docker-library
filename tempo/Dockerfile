@@ -8,3 +8,4 @@ ADD https://raw.githubusercontent.com/grafana/docker-otel-lgtm/refs/tags/${DOCKE
 
 COPY --from=tempo /tempo /usr/local/bin/tempo
 EXPOSE 3200/tcp
+VOLUME [ "/data/tempo"]

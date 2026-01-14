@@ -8,3 +8,4 @@ ADD https://raw.githubusercontent.com/grafana/docker-otel-lgtm/refs/tags/${DOCKE
 
 COPY --from=loki /usr/bin/loki /usr/local/bin/loki
 EXPOSE 3100/tcp
+VOLUME [ "/data/loki" ]
