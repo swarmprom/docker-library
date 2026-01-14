@@ -1,0 +1,3 @@
+#!/command/execlineb -P
+tempo \
+	--config.file=/etc/tempo/config.yaml

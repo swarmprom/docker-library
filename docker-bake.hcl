@@ -39,6 +39,7 @@ group "default" {
         "prometheus",
         "pushgateway",
         "pyroscope",
+        "tempo",
     ]
 }
 
@@ -199,5 +200,18 @@ target "pyroscope" {
     tags = [
         dockerhub("pyroscope", "latest"),
         ghcr("pyroscope", "latest"),
+    ]
+}
+
+target "tempo" {
+    inherits = [ "dockerfile" ]
+    context = "tempo"
+    contexts = {
+      "base" = "target:alpine"
+    }
+    args = {}
+    tags = [
+        dockerhub("tempo", "latest"),
+        ghcr("tempo", "latest"),
     ]
 }
