@@ -1,15 +1,8 @@
 FROM scratch
 
-COPY --link --from=blackbox-exporter / /
-COPY --link --from=cadvisor / /
-COPY --link --from=grafana / /
-COPY --link --from=loki / /
-COPY --link --from=node-exporter / /
-COPY --link --from=opentelemetry-collector / /
-COPY --link --from=prometheus / /
+COPY --link --from=aio-exporters / /
+COPY --link --from=aio-otel-lgmt / /
 COPY --link --from=pushgateway / /
-COPY --link --from=pyroscope / /
-COPY --link --from=tempo / /
 
 # blackbox-exporter
 EXPOSE 9115/tcp

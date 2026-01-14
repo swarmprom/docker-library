@@ -29,7 +29,7 @@ target "dockerfile" {
 group "default" {
   targets = [
         "aio",
-        "aio-exporter-only",
+        "aio-exporters",
         "aio-otel-lgmt",
         "blackbox-exporter",
         "cadvisor",
@@ -58,16 +58,9 @@ target "aio" {
     inherits = [ "dockerfile" ]
     context = "aio"
     contexts = {
-      "blackbox-exporter" = "target:blackbox-exporter"
-      "cadvisor" = "target:cadvisor"
-      "grafana" = "target:grafana"
-      "loki" = "target:loki"
-      "node-exporter" = "target:node-exporter"
-      "opentelemetry-collector" = "target:opentelemetry-collector"
-      "prometheus" = "target:prometheus"
+      "aio-exporters" = "target:aio-exporters"
+      "aio-otel-lgmt" = "target:aio-otel-lgmt"
       "pushgateway" = "target:pushgateway"
-      "pyroscope" = "target:pyroscope"
-      "tempo" = "target:tempo"
     }
     args = {}
     tags = [
@@ -76,9 +69,9 @@ target "aio" {
     ]
 }
 
-target "aio-exporter-only" {
+target "aio-exporters" {
     inherits = [ "dockerfile" ]
-    context = "aio-exporter-only"
+    context = "aio-exporters"
     contexts = {
       "blackbox-exporter" = "target:blackbox-exporter"
       "cadvisor" = "target:cadvisor"
@@ -86,8 +79,8 @@ target "aio-exporter-only" {
     }
     args = {}
     tags = [
-        dockerhub("aio-exporter-only", "latest"),
-        ghcr("aio-exporter-only", "latest"),
+        dockerhub("aio-exporters", "latest"),
+        ghcr("aio-exporters", "latest"),
     ]
 }
 
