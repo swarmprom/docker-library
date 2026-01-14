@@ -4,19 +4,6 @@ FROM base
 ADD rootfs /
 
 # https://github.com/grafana/grafana/blob/main/Dockerfile
-ARG GF_UID="472"
-ARG GF_GID="0"
-
-ENV PATH="/usr/share/grafana/bin:$PATH" \
-    GF_PATHS_CONFIG="/etc/grafana/grafana.ini" \
-    GF_PATHS_DATA="/var/lib/grafana" \
-    GF_PATHS_HOME="/usr/share/grafana" \
-    GF_PATHS_LOGS="/var/log/grafana" \
-    GF_PATHS_PLUGINS="/var/lib/grafana/plugins" \
-    GF_PATHS_PROVISIONING="/etc/grafana/provisioning"
-
-WORKDIR $GF_PATHS_HOME
-
 # Install dependencies
 RUN if grep -i -q alpine /etc/issue; then \
     apk add --no-cache ca-certificates bash curl tzdata musl-utils && \
@@ -49,37 +36,6 @@ RUN if grep -i -q alpine /etc/issue && [ `arch` = "x86_64" ]; then \
     fi
 
 COPY --from=grafana /usr/share/grafana /usr/share/grafana
-
-RUN if [ ! $(getent group "$GF_GID") ]; then \
-    if grep -i -q alpine /etc/issue; then \
-    addgroup -S -g $GF_GID grafana; \
-    else \
-    addgroup --system --gid $GF_GID grafana; \
-    fi; \
-    fi && \
-    GF_GID_NAME=$(getent group $GF_GID | cut -d':' -f1) && \
-    mkdir -p "$GF_PATHS_HOME/.aws" && \
-    if grep -i -q alpine /etc/issue; then \
-    adduser -S -u $GF_UID -G "$GF_GID_NAME" grafana; \
-    else \
-    adduser --system --uid $GF_UID --ingroup "$GF_GID_NAME" grafana; \
-    fi && \
-    mkdir -p "$GF_PATHS_PROVISIONING/datasources" \
-    "$GF_PATHS_PROVISIONING/dashboards" \
-    "$GF_PATHS_PROVISIONING/notifiers" \
-    "$GF_PATHS_PROVISIONING/plugins" \
-    "$GF_PATHS_PROVISIONING/access-control" \
-    "$GF_PATHS_PROVISIONING/alerting" \
-    "$GF_PATHS_LOGS" \
-    "$GF_PATHS_PLUGINS" \
-    "$GF_PATHS_DATA" && \
-    cp conf/sample.ini "$GF_PATHS_CONFIG" && \
-    cp conf/ldap.toml /etc/grafana/ldap.toml && \
-    chown -R "grafana:$GF_GID_NAME" "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" "$GF_PATHS_PROVISIONING" && \
-    chmod -R 777 "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" "$GF_PATHS_PROVISIONING"
-
 COPY --from=grafana /run.sh /etc/s6-overlay/s6-rc.d/grafana/run
-
-RUN mkdir -p /etc/grafana/dashboards
 
 EXPOSE 3000/tcp

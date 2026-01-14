@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+if [ ! $(getent group "$GF_GID") ]; then
+	if grep -i -q alpine /etc/issue; then
+		addgroup -S -g $GF_GID grafana
+	else
+		addgroup --system --gid $GF_GID grafana
+	fi
+fi
+
+GF_GID_NAME=$(getent group $GF_GID | cut -d':' -f1)
+
+mkdir -p "$GF_PATHS_HOME/.aws"
+
+if grep -i -q alpine /etc/issue; then
+	adduser -S -u $GF_UID -G "$GF_GID_NAME" grafana
+else
+	adduser --system --uid $GF_UID --ingroup "$GF_GID_NAME" grafana
+fi
+
+mkdir -p "$GF_PATHS_PROVISIONING/datasources" \
+	"$GF_PATHS_PROVISIONING/dashboards" \
+	"$GF_PATHS_PROVISIONING/notifiers" \
+	"$GF_PATHS_PROVISIONING/plugins" \
+	"$GF_PATHS_PROVISIONING/access-control" \
+	"$GF_PATHS_PROVISIONING/alerting" \
+	"$GF_PATHS_LOGS" \
+	"$GF_PATHS_PLUGINS" \
+	"$GF_PATHS_DATA"
+
+mkdir -p /etc/grafana/dashboards
+
+cp "$GF_PATHS_HOME/conf/sample.ini" "$GF_PATHS_CONFIG"
+cp "$GF_PATHS_HOME/conf/ldap.toml" /etc/grafana/ldap.toml
+
+chown -R "grafana:$GF_GID_NAME" "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" "$GF_PATHS_PROVISIONING"
+chmod -R 777 "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" "$GF_PATHS_PROVISIONING"
