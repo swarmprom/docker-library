@@ -1,6 +1,6 @@
 FROM docker.io/grafana/pyroscope:1.17.1 AS pyroscope
 
-FROM base
+FROM alpine
 ADD rootfs /
 
 ARG DOCKER_OTEL_LGTM_VERSION=v0.14.0

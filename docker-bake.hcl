@@ -106,7 +106,7 @@ target "blackbox-exporter" {
     inherits = [ "dockerfile" ]
     context = "blackbox-exporter"
     contexts = {
-      "base" = "target:alpine"
+      "alpine" = "target:alpine"
     }
     args = {}
     tags = [
@@ -119,7 +119,7 @@ target "cadvisor" {
     inherits = [ "dockerfile" ]
     context = "cadvisor"
     contexts = {
-      "base" = "target:alpine"
+      "alpine" = "target:alpine"
     }
     args = {}
     tags = [
@@ -132,7 +132,7 @@ target "grafana" {
     inherits = [ "dockerfile" ]
     context = "grafana"
     contexts = {
-      "base" = "target:alpine"
+      "alpine" = "target:alpine"
     }
     args = {}
     tags = [
@@ -145,7 +145,7 @@ target "loki" {
     inherits = [ "dockerfile" ]
     context = "loki"
     contexts = {
-      "base" = "target:alpine"
+      "alpine" = "target:alpine"
     }
     args = {}
     tags = [
@@ -158,7 +158,7 @@ target "node-exporter" {
     inherits = [ "dockerfile" ]
     context = "node-exporter"
     contexts = {
-      "base" = "target:alpine"
+      "alpine" = "target:alpine"
     }
     args = {}
     tags = [
@@ -171,7 +171,7 @@ target "opentelemetry-collector" {
     inherits = [ "dockerfile" ]
     context = "opentelemetry-collector"
     contexts = {
-      "base" = "target:alpine"
+      "alpine" = "target:alpine"
     }
     args = {}
     tags = [
@@ -184,7 +184,7 @@ target "prometheus" {
     inherits = [ "dockerfile" ]
     context = "prometheus"
     contexts = {
-      "base" = "target:alpine"
+      "alpine" = "target:alpine"
     }
     args = {}
     tags = [
@@ -197,7 +197,7 @@ target "pushgateway" {
     inherits = [ "dockerfile" ]
     context = "pushgateway"
     contexts = {
-      "base" = "target:alpine"
+      "alpine" = "target:alpine"
     }
     args = {}
     tags = [
@@ -210,7 +210,7 @@ target "pyroscope" {
     inherits = [ "dockerfile" ]
     context = "pyroscope"
     contexts = {
-      "base" = "target:alpine"
+      "alpine" = "target:alpine"
     }
     args = {}
     tags = [
@@ -223,7 +223,7 @@ target "tempo" {
     inherits = [ "dockerfile" ]
     context = "tempo"
     contexts = {
-      "base" = "target:alpine"
+      "alpine" = "target:alpine"
     }
     args = {}
     tags = [

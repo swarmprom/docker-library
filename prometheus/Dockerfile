@@ -1,6 +1,6 @@
 FROM docker.io/prom/prometheus:v3.9.1 AS prometheus
 
-FROM base
+FROM alpine
 ADD rootfs /
 
 COPY --from=prometheus /bin/prometheus /usr/local/bin/prometheus

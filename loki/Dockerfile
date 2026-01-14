@@ -1,6 +1,6 @@
 FROM docker.io/grafana/loki:3.6.3 AS loki
 
-FROM base
+FROM alpine
 ADD rootfs /
 
 ARG DOCKER_OTEL_LGTM_VERSION=v0.14.0

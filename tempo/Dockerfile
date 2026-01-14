@@ -1,6 +1,6 @@
 FROM docker.io/grafana/tempo:2.9.0 AS tempo
 
-FROM base
+FROM alpine
 ADD rootfs /
 
 ARG DOCKER_OTEL_LGTM_VERSION=v0.14.0

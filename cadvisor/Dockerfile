@@ -1,6 +1,6 @@
 FROM ghcr.io/google/cadvisor:0.55 AS cadvisor
 
-FROM base
+FROM alpine
 ADD rootfs /
 
 # https://github.com/google/cadvisor/blob/master/deploy/Dockerfile

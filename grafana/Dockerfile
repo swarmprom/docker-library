@@ -1,6 +1,6 @@
 FROM docker.io/grafana/grafana:12.3 AS grafana
 
-FROM base
+FROM alpine
 ADD rootfs /
 
 # https://github.com/grafana/grafana/blob/main/Dockerfile

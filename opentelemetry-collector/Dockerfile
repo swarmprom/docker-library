@@ -1,6 +1,6 @@
 FROM otel/opentelemetry-collector-contrib:nightly AS opentelemetry-collector
 
-FROM base
+FROM alpine
 ADD rootfs /
 
 ARG DOCKER_OTEL_LGTM_VERSION=v0.14.0
