@@ -36,7 +36,8 @@ group "default" {
         "node-exporter",
         "opentelemetry-collector",
         "prometheus",
-        "pushgateway"
+        "pushgateway",
+        "pyroscope",
     ]
 }
 
@@ -171,5 +172,18 @@ target "pushgateway" {
     tags = [
         dockerhub("pushgateway", "latest"),
         ghcr("pushgateway", "latest"),
+    ]
+}
+
+target "pyroscope" {
+    inherits = [ "dockerfile" ]
+    context = "pyroscope"
+    contexts = {
+      "base" = "target:alpine"
+    }
+    args = {}
+    tags = [
+        dockerhub("pyroscope", "latest"),
+        ghcr("pyroscope", "latest"),
     ]
 }
