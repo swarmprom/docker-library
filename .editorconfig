@@ -14,5 +14,5 @@ insert_final_newline = true
 [Makefile]
 indent_style = tab
 
-[**/run]
+[{**/run,**/bin/*}]
 indent_style = tab
