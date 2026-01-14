@@ -1,0 +1,4 @@
+#!/command/execlineb -P
+otelcol-contrib \
+	--feature-gates service.profilesSupport \
+	--config=file:/etc/otelcol/config.yaml

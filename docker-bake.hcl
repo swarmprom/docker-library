@@ -34,6 +34,7 @@ group "default" {
         "cadvisor",
         "grafana",
         "node-exporter",
+        "opentelemetry-collector",
         "prometheus",
         "pushgateway"
     ]
@@ -131,6 +132,19 @@ target "node-exporter" {
     tags = [
         dockerhub("node-exporter", "latest"),
         ghcr("node-exporter", "latest"),
+    ]
+}
+
+target "opentelemetry-collector" {
+    inherits = [ "dockerfile" ]
+    context = "opentelemetry-collector"
+    contexts = {
+      "base" = "target:alpine"
+    }
+    args = {}
+    tags = [
+        dockerhub("opentelemetry-collector", "latest"),
+        ghcr("opentelemetry-collector", "latest"),
     ]
 }
 
