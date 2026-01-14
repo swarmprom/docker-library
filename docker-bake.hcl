@@ -30,6 +30,7 @@ group "default" {
   targets = [
         "aio",
         "aio-exporter-only",
+        "aio-otel-lgmt",
         "blackbox-exporter",
         "cadvisor",
         "grafana",
@@ -87,6 +88,24 @@ target "aio-exporter-only" {
     tags = [
         dockerhub("aio-exporter-only", "latest"),
         ghcr("aio-exporter-only", "latest"),
+    ]
+}
+
+target "aio-otel-lgmt" {
+    inherits = [ "dockerfile" ]
+    context = "aio-otel-lgmt"
+    contexts = {
+      "grafana" = "target:grafana"
+      "loki" = "target:loki"
+      "opentelemetry-collector" = "target:opentelemetry-collector"
+      "prometheus" = "target:prometheus"
+      "pyroscope" = "target:pyroscope"
+      "tempo" = "target:tempo"
+    }
+    args = {}
+    tags = [
+        dockerhub("aio-otel-lgmt", "latest"),
+        ghcr("aio-otel-lgmt", "latest"),
     ]
 }
 
