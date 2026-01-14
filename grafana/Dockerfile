@@ -39,3 +39,4 @@ COPY --from=grafana /usr/share/grafana /usr/share/grafana
 COPY --from=grafana /run.sh /usr/local/bin/grafana-run
 
 EXPOSE 3000/tcp
+VOLUME [ "/data/grafana" ]
