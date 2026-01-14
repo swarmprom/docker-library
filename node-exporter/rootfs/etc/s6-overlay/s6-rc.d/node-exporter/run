@@ -1,9 +1,9 @@
 #!/command/execlineb -P
 node_exporter \
-	--path.rootfs=/rootfs/root \
-	--path.sysfs=/rootfs/sys \
-	--path.procfs=/rootfs/proc \
-	--path.udev.data=/rootfs/root/run/udev/data \
+	--path.rootfs=/hostfs/rootfs \
+	--path.sysfs=/hostfs/sys \
+	--path.procfs=/hostfs/proc \
+	--path.udev.data=/hostfs/root/run/udev/data \
 	--collector.systemd \
 	--collector.processes \
 	--collector.textfile.directory=/etc/node-exporter \
