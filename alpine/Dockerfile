@@ -7,7 +7,7 @@ FROM alpine:latest
 
 ADD rootfs /
 RUN chmod +x /init-shim && \
-    apk add --no-cache ca-certificates bash uuidgen && \
+    apk add --no-cache bash ca-certificates curl musl-utils uuidgen tzdata && \
     rm -rf /var/cache/apk/*
 
 # Overlay the s6-overlay files to the root filesystem
