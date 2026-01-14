@@ -29,6 +29,7 @@ target "dockerfile" {
 group "default" {
   targets = [
         "aio",
+        "aio-exporter-only",
         "blackbox-exporter",
         "cadvisor",
         "grafana",
@@ -63,6 +64,21 @@ target "aio" {
     tags = [
         dockerhub("aio", "latest"),
         ghcr("aio", "latest"),
+    ]
+}
+
+target "aio-exporter-only" {
+    inherits = [ "dockerfile" ]
+    context = "aio-exporter-only"
+    contexts = {
+      "blackbox-exporter" = "target:blackbox-exporter"
+      "cadvisor" = "target:cadvisor"
+      "node-exporter" = "target:node-exporter"
+    }
+    args = {}
+    tags = [
+        dockerhub("aio-exporter-only", "latest"),
+        ghcr("aio-exporter-only", "latest"),
     ]
 }
 
