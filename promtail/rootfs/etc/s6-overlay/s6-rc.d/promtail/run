@@ -2,5 +2,5 @@
 exec 2>&1
 exec promtail \
 		--config.expand-env=true \
-		--config.file=/etc/loki/promtail-local-config.yaml \
+		--config.file=/etc/promtail/config.yml \
 		--server.enable-runtime-reload
