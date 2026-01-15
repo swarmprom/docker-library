@@ -1,4 +1,4 @@
-FROM ghcr.io/google/cadvisor:0.55 AS cadvisor
+FROM ghcr.io/google/cadvisor:0.56 AS cadvisor
 
 FROM alpine
 ADD rootfs /
