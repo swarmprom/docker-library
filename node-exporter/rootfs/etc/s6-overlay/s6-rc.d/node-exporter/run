@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 exec 2>&1
 exec node_exporter \
-		--path.rootfs=/hostfs/rootfs \
-		--path.sysfs=/hostfs/sys \
-		--path.procfs=/hostfs/proc \
-		--path.udev.data=/hostfs/root/run/udev/data \
+		--path.rootfs=/host_mnt/ \
+		--path.sysfs=/host_mnt/sys \
+		--path.procfs=/host_mnt/proc \
+		--path.udev.data=/host_mnt/run/udev/data \
 		--collector.systemd \
 		--collector.processes \
 		--collector.textfile.directory=/etc/node-exporter \
