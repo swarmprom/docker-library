@@ -1,3 +1,4 @@
-#!/command/execlineb -P
-loki \
-	--config.file=/etc/loki/config.yaml
+#!/usr/bin/env bash
+exec 2>&1
+exec loki \
+		--config.file=/etc/loki/config.yaml

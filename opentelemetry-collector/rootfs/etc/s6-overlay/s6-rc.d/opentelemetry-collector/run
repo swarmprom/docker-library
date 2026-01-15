@@ -29,7 +29,8 @@ if [[ -v OTEL_EXPORTER_OTLP_ENDPOINT && -n ${OTEL_EXPORTER_OTLP_ENDPOINT} ]]; th
 	fi
 fi
 
-otelcol-contrib \
+exec 2>&1
+exec otelcol-contrib \
 	--feature-gates service.profilesSupport \
 	--config=file:/etc/otelcol/config.yaml \
 	${secondary_config_file}

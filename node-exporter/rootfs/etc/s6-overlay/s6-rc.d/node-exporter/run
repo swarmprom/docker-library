@@ -1,11 +1,12 @@
-#!/command/execlineb -P
-node_exporter \
-	--path.rootfs=/hostfs/rootfs \
-	--path.sysfs=/hostfs/sys \
-	--path.procfs=/hostfs/proc \
-	--path.udev.data=/hostfs/root/run/udev/data \
-	--collector.systemd \
-	--collector.processes \
-	--collector.textfile.directory=/etc/node-exporter \
-	--collector.filesystem.mount-points-exclude=^/\(sys\|proc\|dev\|host\|etc\)\(\$\|/\) \
-	--no-collector.ipvs
+#!/usr/bin/env bash
+exec 2>&1
+exec node_exporter \
+		--path.rootfs=/hostfs/rootfs \
+		--path.sysfs=/hostfs/sys \
+		--path.procfs=/hostfs/proc \
+		--path.udev.data=/hostfs/root/run/udev/data \
+		--collector.systemd \
+		--collector.processes \
+		--collector.textfile.directory=/etc/node-exporter \
+		--collector.filesystem.mount-points-exclude=^/\(sys\|proc\|dev\|host\|etc\)\(\$\|/\) \
+		--no-collector.ipvs

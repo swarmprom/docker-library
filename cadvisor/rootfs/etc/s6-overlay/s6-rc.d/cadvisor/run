@@ -1,6 +1,7 @@
-#!/command/execlineb -P
-cadvisor \
-	--v=1 \
-	--docker_only \
-	--housekeeping_interval=15s \
-	--update_machine_info_interval=15s
+#!/usr/bin/env bash
+exec 2>&1
+exec cadvisor \
+		--v=1 \
+		--docker_only \
+		--housekeeping_interval=15s \
+		--update_machine_info_interval=15s

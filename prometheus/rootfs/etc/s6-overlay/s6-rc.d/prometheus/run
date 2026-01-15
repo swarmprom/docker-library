@@ -1,10 +1,11 @@
-#!/command/execlineb -P
-prometheus \
-	--config.file=/etc/prometheus/prometheus.yml
-	--enable-feature=exemplar-storage \
-	--enable-feature=native-histograms \
-	--storage.tsdb.path=/data/prometheus \
-	--web.enable-lifecycle \
-	--web.enable-otlp-receiver \
-	--web.enable-remote-write-receiver \
-	--log.level=info
+#!/usr/bin/env bash
+exec 2>&1
+exec prometheus \
+		--config.file=/etc/prometheus/prometheus.yml \
+		--enable-feature=exemplar-storage \
+		--enable-feature=native-histograms \
+		--storage.tsdb.path=/data/prometheus \
+		--web.enable-lifecycle \
+		--web.enable-otlp-receiver \
+		--web.enable-remote-write-receiver \
+		--log.level=info

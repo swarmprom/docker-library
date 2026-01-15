@@ -1,3 +1,4 @@
-#!/command/execlineb -P
-pyroscope \
+#!/usr/bin/env bash
+exec 2>&1
+exec pyroscope \
 	--config.file=/etc/pyroscope/config.yaml

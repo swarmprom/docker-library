@@ -1,3 +1,4 @@
-#!/command/execlineb -P
-tempo \
+#!/usr/bin/env bash
+exec 2>&1
+exec tempo \
 	--config.file=/etc/tempo/config.yaml
