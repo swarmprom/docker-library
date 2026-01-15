@@ -3,5 +3,5 @@ exec 2>&1
 exec cadvisor \
 		--v=1 \
 		--docker_only \
-		--housekeeping_interval=15s \
+		--allow_dynamic_housekeeping \
 		--update_machine_info_interval=15s
