@@ -19,6 +19,8 @@ EXPOSE 4318/tcp
 EXPOSE 4317/tcp
 # prometheus
 EXPOSE 9090/tcp
+# promtail
+EXPOSE 9080/tcp
 # pushgateway
 EXPOSE 9091/tcp
 # pyroscope

@@ -38,6 +38,7 @@ group "default" {
         "node-exporter",
         "opentelemetry-collector",
         "prometheus",
+        "promtail",
         "pushgateway",
         "pyroscope",
         "tempo",
@@ -92,6 +93,7 @@ target "aio-otel-lgmt" {
       "loki" = "target:loki"
       "opentelemetry-collector" = "target:opentelemetry-collector"
       "prometheus" = "target:prometheus"
+      "promtail" = "target:promtail"
       "pyroscope" = "target:pyroscope"
       "tempo" = "target:tempo"
     }
@@ -190,6 +192,19 @@ target "prometheus" {
     tags = [
         dockerhub("prometheus", "latest"),
         ghcr("prometheus", "latest"),
+    ]
+}
+
+target "promtail" {
+    inherits = [ "dockerfile" ]
+    context = "promtail"
+    contexts = {
+      "alpine" = "target:alpine"
+    }
+    args = {}
+    tags = [
+        dockerhub("promtail", "latest"),
+        ghcr("promtail", "latest"),
     ]
 }
 
