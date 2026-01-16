@@ -147,7 +147,7 @@ target "images" {
   context = name
   inherits = [ "dockerfile" ]
   tags = [
-      dockerhub(name, "latest"),
+      // dockerhub(name, "latest"),
       ghcr(name, "latest"),
   ]
 }
