@@ -1,4 +1,5 @@
-FROM docker.io/grafana/loki:3.6.3 AS loki
+ARG DOCKERHUB=docker.io
+FROM ${DOCKERHUB}/grafana/loki:3.6.3 AS loki
 
 FROM alpine
 ADD rootfs /

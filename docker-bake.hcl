@@ -1,3 +1,6 @@
+variable "DOCKERHUB" { default = "docker.io" }
+variable "GHCR" { default = "ghcr.io" }
+
 variable "GITHUB_REPOSITORY_OWNER" {
   default = "swarmprom"
 }
@@ -20,6 +23,10 @@ target "dockerfile" {
         "docker-metadata-action",
         "github-metadata-action",
     ]
+    args = {
+      DOCKERHUB = DOCKERHUB
+      GHCR = GHCR
+    }
     platforms = [
         "linux/amd64",
         "linux/arm64",

@@ -1,4 +1,5 @@
-FROM docker.io/grafana/grafana:12.3 AS grafana
+ARG DOCKERHUB=docker.io
+FROM ${DOCKERHUB}/grafana/grafana:12.3 AS grafana
 
 FROM alpine
 ADD rootfs /

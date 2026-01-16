@@ -1,4 +1,5 @@
-FROM docker.io/prom/prometheus:v3.9.1 AS prometheus
+ARG DOCKERHUB=docker.io
+FROM ${DOCKERHUB}/prom/prometheus:v3.9.1 AS prometheus
 
 FROM alpine
 ADD rootfs /

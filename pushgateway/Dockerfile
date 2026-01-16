@@ -1,4 +1,5 @@
-FROM docker.io/prom/pushgateway:v1.11.2 AS pushgateway
+ARG DOCKERHUB=docker.io
+FROM ${DOCKERHUB}/prom/pushgateway:v1.11.2 AS pushgateway
 
 FROM alpine
 ADD rootfs /

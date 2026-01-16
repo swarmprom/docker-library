@@ -1,4 +1,5 @@
-FROM docker.io/grafana/tempo:2.9.0 AS tempo
+ARG DOCKERHUB=docker.io
+FROM ${DOCKERHUB}/grafana/tempo:2.9.0 AS tempo
 
 FROM alpine
 ADD rootfs /

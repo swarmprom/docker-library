@@ -1,4 +1,5 @@
-FROM docker.io/grafana/pyroscope:1.17.1 AS pyroscope
+ARG DOCKERHUB=docker.io
+FROM ${DOCKERHUB}/grafana/pyroscope:1.17.1 AS pyroscope
 
 FROM alpine
 ADD rootfs /

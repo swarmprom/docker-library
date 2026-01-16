@@ -1,9 +1,11 @@
+ARG DOCKERHUB=docker.io
 ARG S6_VERSION=v3.2.1.0
-FROM socheatsok78/s6-overlay:${S6_VERSION} AS s6-overlay
-FROM socheatsok78/s6-overlay:${S6_VERSION}-symlinks AS s6-overlay-symlinks
+
+FROM ${DOCKERHUB}/socheatsok78/s6-overlay:${S6_VERSION} AS s6-overlay
+FROM ${DOCKERHUB}/socheatsok78/s6-overlay:${S6_VERSION}-symlinks AS s6-overlay-symlinks
 
 # This is your final image
-FROM alpine:latest
+FROM ${DOCKERHUB}/alpine:latest
 
 ADD rootfs /
 RUN chmod +x /init-shim && \

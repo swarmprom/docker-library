@@ -1,7 +1,8 @@
 ARG GO_VERSION=1.25
 ARG IMAGE_TAG=v3.6.3
+ARG DOCKERHUB=docker.io
 
-FROM golang:${GO_VERSION}-alpine AS build
+FROM ${DOCKERHUB}/golang:${GO_VERSION}-alpine AS build
 RUN apk add --no-cache bash git make gcc musl-dev
 ARG IMAGE_TAG
 ADD https://github.com/grafana/loki.git#${IMAGE_TAG} /src/loki

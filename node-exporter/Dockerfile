@@ -1,4 +1,5 @@
-FROM docker.io/prom/node-exporter:v1.10.2 AS node-exporter
+ARG DOCKERHUB=docker.io
+FROM ${DOCKERHUB}/prom/node-exporter:v1.10.2 AS node-exporter
 
 FROM alpine
 ADD rootfs /

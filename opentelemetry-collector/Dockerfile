@@ -1,4 +1,5 @@
-FROM otel/opentelemetry-collector-contrib:nightly AS opentelemetry-collector
+ARG DOCKERHUB=docker.io
+FROM ${DOCKERHUB}/otel/opentelemetry-collector-contrib:nightly AS opentelemetry-collector
 
 FROM alpine
 ADD rootfs /

@@ -1,4 +1,5 @@
-FROM docker.io/prom/blackbox-exporter:v0.28.0 AS blackbox-exporter
+ARG DOCKERHUB=docker.io
+FROM ${DOCKERHUB}/prom/blackbox-exporter:v0.28.0 AS blackbox-exporter
 
 FROM alpine
 ADD rootfs /
