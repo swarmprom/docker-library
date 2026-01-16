@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
+source /var/cadvisor/default
 exec 2>&1
-exec cadvisor --v=1 --docker_only \
-		--allow_dynamic_housekeeping \
-		--update_machine_info_interval=15s
+exec cadvisor \
+		--docker_only \
+		--housekeeping_interval=30s
