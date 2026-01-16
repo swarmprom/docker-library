@@ -31,6 +31,7 @@ group "default" {
         "aio",
         "aio-exporters",
         "aio-otel-lgmt",
+        "alpine",
         "blackbox-exporter",
         "cadvisor",
         "grafana",
