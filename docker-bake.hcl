@@ -41,6 +41,7 @@ group "default" {
         "promtail",
         "pushgateway",
         "pyroscope",
+        "pyroscope-alloy-ebpf",
         "tempo",
     ]
 }
