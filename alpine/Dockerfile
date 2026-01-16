@@ -14,13 +14,13 @@ FROM ${DOCKERHUB}/alpine:latest
 ADD rootfs /
 RUN chmod +x /init-shim
 
+# # https://github.com/grafana/grafana/blob/main/Dockerfile
+RUN apk add --no-cache ca-certificates bash curl tzdata musl-utils && \
+    rm -rf /var/cache/apk/*
+
 # https://github.com/google/cadvisor/blob/master/deploy/Dockerfile
 RUN apk --no-cache add libc6-compat device-mapper findutils ndctl thin-provisioning-tools zfs && \
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
-    rm -rf /var/cache/apk/*
-
-# # https://github.com/grafana/grafana/blob/main/Dockerfile
-RUN apk add --no-cache ca-certificates bash curl tzdata musl-utils && \
     rm -rf /var/cache/apk/*
 
 # Overlay the s6-overlay files to the root filesystem
