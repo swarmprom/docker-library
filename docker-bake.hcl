@@ -68,9 +68,18 @@ target "aio" {
     inherits = [ "dockerfile" ]
     context = "aio"
     contexts = {
-      "aio-exporters" = "target:aio-exporters"
-      "aio-otel-lgmt" = "target:aio-otel-lgmt"
-      "pushgateway" = "target:pushgateway"
+      alpine = "target:alpine",
+      blackbox-exporter = "target:blackbox-exporter",
+      cadvisor = "target:cadvisor",
+      grafana = "target:grafana",
+      loki = "target:loki",
+      node-exporter = "target:node-exporter",
+      opentelemetry-collector = "target:opentelemetry-collector",
+      prometheus = "target:prometheus",
+      promtail = "target:promtail",
+      pushgateway = "target:pushgateway",
+      pyroscope = "target:pyroscope",
+      tempo = "target:tempo",
     }
     args = {}
     tags = [
@@ -83,6 +92,7 @@ target "aio-exporters" {
     inherits = [ "dockerfile" ]
     context = "aio-exporters"
     contexts = {
+      "alpine" = "target:alpine"
       "blackbox-exporter" = "target:blackbox-exporter"
       "cadvisor" = "target:cadvisor"
       "node-exporter" = "target:node-exporter"
@@ -98,6 +108,7 @@ target "aio-otel-lgmt" {
     inherits = [ "dockerfile" ]
     context = "aio-otel-lgmt"
     contexts = {
+      "alpine" = "target:alpine"
       "grafana" = "target:grafana"
       "loki" = "target:loki"
       "opentelemetry-collector" = "target:opentelemetry-collector"
