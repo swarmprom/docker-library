@@ -68,18 +68,19 @@ target "aio" {
     inherits = [ "dockerfile" ]
     context = "aio"
     contexts = {
-      alpine = "target:alpine",
-      blackbox-exporter = "target:blackbox-exporter",
-      cadvisor = "target:cadvisor",
-      grafana = "target:grafana",
-      loki = "target:loki",
-      node-exporter = "target:node-exporter",
-      opentelemetry-collector = "target:opentelemetry-collector",
-      prometheus = "target:prometheus",
-      promtail = "target:promtail",
-      pushgateway = "target:pushgateway",
-      pyroscope = "target:pyroscope",
-      tempo = "target:tempo",
+      alpine = "target:alpine"
+      aio-otel-lgmt-rootfs = "target:aio-otel-lgmt-rootfs"
+      blackbox-exporter = "target:blackbox-exporter-rootfs"
+      cadvisor = "target:cadvisor-rootfs"
+      grafana = "target:grafana-rootfs"
+      loki = "target:loki-rootfs"
+      node-exporter = "target:node-exporter-rootfs"
+      opentelemetry-collector = "target:opentelemetry-collector-rootfs"
+      prometheus = "target:prometheus-rootfs"
+      promtail = "target:promtail-rootfs"
+      pushgateway = "target:pushgateway-rootfs"
+      pyroscope = "target:pyroscope-rootfs"
+      tempo = "target:tempo-rootfs"
     }
     args = {}
     tags = [
@@ -93,9 +94,9 @@ target "aio-exporters" {
     context = "aio-exporters"
     contexts = {
       "alpine" = "target:alpine"
-      "blackbox-exporter" = "target:blackbox-exporter"
-      "cadvisor" = "target:cadvisor"
-      "node-exporter" = "target:node-exporter"
+      "blackbox-exporter" = "target:blackbox-exporter-rootfs"
+      "cadvisor" = "target:cadvisor-rootfs"
+      "node-exporter" = "target:node-exporter-rootfs"
     }
     args = {}
     tags = [
@@ -109,13 +110,13 @@ target "aio-otel-lgmt" {
     context = "aio-otel-lgmt"
     contexts = {
       "alpine" = "target:alpine"
-      "grafana" = "target:grafana"
-      "loki" = "target:loki"
-      "opentelemetry-collector" = "target:opentelemetry-collector"
-      "prometheus" = "target:prometheus"
-      "promtail" = "target:promtail"
-      "pyroscope" = "target:pyroscope"
-      "tempo" = "target:tempo"
+      "grafana" = "target:grafana-rootfs"
+      "loki" = "target:loki-rootfs"
+      "opentelemetry-collector" = "target:opentelemetry-collector-rootfs"
+      "prometheus" = "target:prometheus-rootfs"
+      "promtail" = "target:promtail-rootfs"
+      "pyroscope" = "target:pyroscope-rootfs"
+      "tempo" = "target:tempo-rootfs"
     }
     args = {}
     tags = [
@@ -124,158 +125,54 @@ target "aio-otel-lgmt" {
     ]
 }
 
-target "blackbox-exporter" {
-    inherits = [ "dockerfile" ]
-    context = "blackbox-exporter"
-    contexts = {
-      "alpine" = "target:alpine"
-    }
-    args = {}
-    tags = [
-        // dockerhub("blackbox-exporter", "latest"),
-        ghcr("blackbox-exporter", "latest"),
+target "images" {
+  matrix = {
+    "name" = [
+      "alpine",
+      "blackbox-exporter",
+      "cadvisor",
+      "grafana",
+      "loki",
+      "node-exporter",
+      "opentelemetry-collector",
+      "prometheus",
+      "promtail",
+      "pushgateway",
+      "pyroscope",
+      "pyroscope-alloy-ebpf",
+      "tempo",
     ]
+  }
+  name = "${name}"
+  context = name
+  inherits = [ "dockerfile" ]
+  tags = [
+      dockerhub(name, "latest"),
+      ghcr(name, "latest"),
+  ]
 }
 
-target "cadvisor" {
-    inherits = [ "dockerfile" ]
-    context = "cadvisor"
-    contexts = {
-      "alpine" = "target:alpine"
-    }
-    args = {}
-    tags = [
-        // dockerhub("cadvisor", "latest"),
-        ghcr("cadvisor", "latest"),
+target "rootfs" {
+  matrix = {
+    "name" = [
+      "aio-otel-lgmt",
+      "alpine",
+      "blackbox-exporter",
+      "cadvisor",
+      "grafana",
+      "loki",
+      "node-exporter",
+      "opentelemetry-collector",
+      "prometheus",
+      "promtail",
+      "pushgateway",
+      "pyroscope",
+      "pyroscope-alloy-ebpf",
+      "tempo",
     ]
-}
-
-target "grafana" {
-    inherits = [ "dockerfile" ]
-    context = "grafana"
-    contexts = {
-      "alpine" = "target:alpine"
-    }
-    args = {}
-    tags = [
-        // dockerhub("grafana", "latest"),
-        ghcr("grafana", "latest"),
-    ]
-}
-
-target "loki" {
-    inherits = [ "dockerfile" ]
-    context = "loki"
-    contexts = {
-      "alpine" = "target:alpine"
-    }
-    args = {}
-    tags = [
-        // dockerhub("loki", "latest"),
-        ghcr("loki", "latest"),
-    ]
-}
-
-target "node-exporter" {
-    inherits = [ "dockerfile" ]
-    context = "node-exporter"
-    contexts = {
-      "alpine" = "target:alpine"
-    }
-    args = {}
-    tags = [
-        // dockerhub("node-exporter", "latest"),
-        ghcr("node-exporter", "latest"),
-    ]
-}
-
-target "opentelemetry-collector" {
-    inherits = [ "dockerfile" ]
-    context = "opentelemetry-collector"
-    contexts = {
-      "alpine" = "target:alpine"
-    }
-    args = {}
-    tags = [
-        // dockerhub("opentelemetry-collector", "latest"),
-        ghcr("opentelemetry-collector", "latest"),
-    ]
-}
-
-target "prometheus" {
-    inherits = [ "dockerfile" ]
-    context = "prometheus"
-    contexts = {
-      "alpine" = "target:alpine"
-    }
-    args = {}
-    tags = [
-        // dockerhub("prometheus", "latest"),
-        ghcr("prometheus", "latest"),
-    ]
-}
-
-target "promtail" {
-    inherits = [ "dockerfile" ]
-    context = "promtail"
-    contexts = {
-      "alpine" = "target:alpine"
-    }
-    args = {}
-    tags = [
-        // dockerhub("promtail", "latest"),
-        ghcr("promtail", "latest"),
-    ]
-}
-
-target "pushgateway" {
-    inherits = [ "dockerfile" ]
-    context = "pushgateway"
-    contexts = {
-      "alpine" = "target:alpine"
-    }
-    args = {}
-    tags = [
-        // dockerhub("pushgateway", "latest"),
-        ghcr("pushgateway", "latest"),
-    ]
-}
-
-target "pyroscope" {
-    inherits = [ "dockerfile" ]
-    context = "pyroscope"
-    contexts = {
-      "alpine" = "target:alpine"
-    }
-    args = {}
-    tags = [
-        // dockerhub("pyroscope", "latest"),
-        ghcr("pyroscope", "latest"),
-    ]
-}
-
-target "pyroscope-alloy-ebpf" {
-    inherits = [ "dockerfile" ]
-    context = "pyroscope-alloy-ebpf"
-    contexts = {
-      "alpine" = "target:alpine"
-    }
-    args = {}
-    tags = [
-        // dockerhub("pyroscope-alloy-ebpf", "latest"),
-        ghcr("pyroscope-alloy-ebpf", "latest"),
-    ]
-}
-
-target "tempo" {
-    inherits = [ "dockerfile" ]
-    context = "tempo"
-    contexts = {
-      "alpine" = "target:alpine"
-    }
-    args = {}
-    tags = [
-        // dockerhub("tempo", "latest"),
-        ghcr("tempo", "latest"),
-    ]
+  }
+  name = "${name}-rootfs"
+  context = name
+  target = "rootfs"
+  inherits = [ "dockerfile" ]
 }
