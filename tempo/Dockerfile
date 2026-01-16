@@ -1,5 +1,7 @@
 ARG DOCKERHUB=docker.io
-FROM ${DOCKERHUB}/grafana/tempo:2.9.0 AS tempo
+ARG TEMPO_VERSION=2.9.0
+
+FROM ${DOCKERHUB}/grafana/tempo:${TEMPO_VERSION} AS tempo
 
 # rootfs
 FROM scratch AS rootfs

@@ -1,5 +1,7 @@
 ARG DOCKERHUB=docker.io
-FROM ${DOCKERHUB}/grafana/pyroscope:1.17.1 AS pyroscope
+ARG PYROSCOPE_VERSION=1.17.1
+
+FROM ${DOCKERHUB}/grafana/pyroscope:${PYROSCOPE_VERSION} AS pyroscope
 
 # rootfs
 FROM scratch AS rootfs

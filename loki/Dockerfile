@@ -1,5 +1,7 @@
 ARG DOCKERHUB=docker.io
-FROM ${DOCKERHUB}/grafana/loki:3.6.3 AS loki
+ARG LOKI_VERSION=3.6.3
+
+FROM ${DOCKERHUB}/grafana/loki:${LOKI_VERSION} AS loki
 
 # rootfs
 FROM scratch AS rootfs

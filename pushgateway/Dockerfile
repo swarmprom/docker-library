@@ -1,5 +1,7 @@
 ARG DOCKERHUB=docker.io
-FROM ${DOCKERHUB}/prom/pushgateway:v1.11.2 AS pushgateway
+ARG PUSHGATEWAY_VERSION=1.11.2
+
+FROM ${DOCKERHUB}/prom/pushgateway:v${PUSHGATEWAY_VERSION} AS pushgateway
 
 # rootfs
 FROM scratch AS rootfs

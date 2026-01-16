@@ -1,5 +1,7 @@
 ARG DOCKERHUB=docker.io
-FROM ${DOCKERHUB}/prom/prometheus:v3.9.1 AS prometheus
+ARG PROMETHEUS_VERSION=3.9.1
+
+FROM ${DOCKERHUB}/prom/prometheus:v${PROMETHEUS_VERSION} AS prometheus
 
 # rootfs
 FROM scratch AS rootfs

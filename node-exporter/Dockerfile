@@ -1,5 +1,7 @@
 ARG DOCKERHUB=docker.io
-FROM ${DOCKERHUB}/prom/node-exporter:v1.10.2 AS node-exporter
+ARG NODE_EXPORTER_VERSION=1.10.2
+
+FROM ${DOCKERHUB}/prom/node-exporter:v${NODE_EXPORTER_VERSION} AS node-exporter
 
 # rootfs
 FROM scratch AS rootfs

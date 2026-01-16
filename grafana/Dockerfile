@@ -1,7 +1,8 @@
 ARG TARGETARCH
 ARG DOCKERHUB=docker.io
+ARG GRAFANA_VERSION=12.3
 
-FROM ${DOCKERHUB}/grafana/grafana:12.3 AS grafana
+FROM ${DOCKERHUB}/grafana/grafana:${GRAFANA_VERSION} AS grafana
 
 FROM scratch AS grafana-overlay-amd64
 COPY --from=grafana /lib64 /lib64

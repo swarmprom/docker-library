@@ -1,5 +1,7 @@
 ARG DOCKERHUB=docker.io
-FROM ${DOCKERHUB}/prom/blackbox-exporter:v0.28.0 AS blackbox-exporter
+ARG BLACKBOX_EXPORTER_VERSION=0.28.0
+
+FROM ${DOCKERHUB}/prom/blackbox-exporter:v${BLACKBOX_EXPORTER_VERSION} AS blackbox-exporter
 
 # rootfs
 FROM scratch AS rootfs
