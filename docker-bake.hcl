@@ -1,5 +1,5 @@
 variable "GITHUB_REPOSITORY_OWNER" {
-  default = "swarmlibs"
+  default = "swarmprom"
 }
 
 function "dockerhub" {
@@ -51,7 +51,7 @@ target "alpine" {
     context = "alpine"
     args = {}
     tags = [
-        dockerhub("alpine", "latest"),
+        // dockerhub("alpine", "latest"),
         ghcr("alpine", "latest"),
     ]
 }
@@ -66,7 +66,7 @@ target "aio" {
     }
     args = {}
     tags = [
-        dockerhub("aio", "latest"),
+        // dockerhub("aio", "latest"),
         ghcr("aio", "latest"),
     ]
 }
@@ -81,7 +81,7 @@ target "aio-exporters" {
     }
     args = {}
     tags = [
-        dockerhub("aio-exporters", "latest"),
+        // dockerhub("aio-exporters", "latest"),
         ghcr("aio-exporters", "latest"),
     ]
 }
@@ -100,7 +100,7 @@ target "aio-otel-lgmt" {
     }
     args = {}
     tags = [
-        dockerhub("aio-otel-lgmt", "latest"),
+        // dockerhub("aio-otel-lgmt", "latest"),
         ghcr("aio-otel-lgmt", "latest"),
     ]
 }
@@ -113,7 +113,7 @@ target "blackbox-exporter" {
     }
     args = {}
     tags = [
-        dockerhub("blackbox-exporter", "latest"),
+        // dockerhub("blackbox-exporter", "latest"),
         ghcr("blackbox-exporter", "latest"),
     ]
 }
@@ -126,7 +126,7 @@ target "cadvisor" {
     }
     args = {}
     tags = [
-        dockerhub("cadvisor", "latest"),
+        // dockerhub("cadvisor", "latest"),
         ghcr("cadvisor", "latest"),
     ]
 }
@@ -139,7 +139,7 @@ target "grafana" {
     }
     args = {}
     tags = [
-        dockerhub("grafana", "latest"),
+        // dockerhub("grafana", "latest"),
         ghcr("grafana", "latest"),
     ]
 }
@@ -152,7 +152,7 @@ target "loki" {
     }
     args = {}
     tags = [
-        dockerhub("loki", "latest"),
+        // dockerhub("loki", "latest"),
         ghcr("loki", "latest"),
     ]
 }
@@ -165,7 +165,7 @@ target "node-exporter" {
     }
     args = {}
     tags = [
-        dockerhub("node-exporter", "latest"),
+        // dockerhub("node-exporter", "latest"),
         ghcr("node-exporter", "latest"),
     ]
 }
@@ -178,7 +178,7 @@ target "opentelemetry-collector" {
     }
     args = {}
     tags = [
-        dockerhub("opentelemetry-collector", "latest"),
+        // dockerhub("opentelemetry-collector", "latest"),
         ghcr("opentelemetry-collector", "latest"),
     ]
 }
@@ -191,7 +191,7 @@ target "prometheus" {
     }
     args = {}
     tags = [
-        dockerhub("prometheus", "latest"),
+        // dockerhub("prometheus", "latest"),
         ghcr("prometheus", "latest"),
     ]
 }
@@ -204,7 +204,7 @@ target "promtail" {
     }
     args = {}
     tags = [
-        dockerhub("promtail", "latest"),
+        // dockerhub("promtail", "latest"),
         ghcr("promtail", "latest"),
     ]
 }
@@ -217,7 +217,7 @@ target "pushgateway" {
     }
     args = {}
     tags = [
-        dockerhub("pushgateway", "latest"),
+        // dockerhub("pushgateway", "latest"),
         ghcr("pushgateway", "latest"),
     ]
 }
@@ -230,7 +230,7 @@ target "pyroscope" {
     }
     args = {}
     tags = [
-        dockerhub("pyroscope", "latest"),
+        // dockerhub("pyroscope", "latest"),
         ghcr("pyroscope", "latest"),
     ]
 }
@@ -243,7 +243,7 @@ target "pyroscope-alloy-ebpf" {
     }
     args = {}
     tags = [
-        dockerhub("pyroscope-alloy-ebpf", "latest"),
+        // dockerhub("pyroscope-alloy-ebpf", "latest"),
         ghcr("pyroscope-alloy-ebpf", "latest"),
     ]
 }
@@ -256,7 +256,7 @@ target "tempo" {
     }
     args = {}
     tags = [
-        dockerhub("tempo", "latest"),
+        // dockerhub("tempo", "latest"),
         ghcr("tempo", "latest"),
     ]
 }
