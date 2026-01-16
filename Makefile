@@ -6,3 +6,5 @@ targets:
 	docker buildx bake --print | jq -r '.target | keys'
 build: print
 	docker buildx bake $(target) --set="*.platform="
+push: print
+	docker buildx bake $(target) --push
