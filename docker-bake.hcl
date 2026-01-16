@@ -38,19 +38,7 @@ group "default" {
         "aio",
         "aio-exporters",
         "aio-otel-lgmt",
-        "alpine",
-        "blackbox-exporter",
-        "cadvisor",
-        "grafana",
-        "loki",
-        "node-exporter",
-        "opentelemetry-collector",
-        "prometheus",
-        "promtail",
-        "pushgateway",
-        "pyroscope",
-        "pyroscope-alloy-ebpf",
-        "tempo",
+        "images",
     ]
 }
 
