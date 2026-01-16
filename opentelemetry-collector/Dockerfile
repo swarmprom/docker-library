@@ -1,5 +1,5 @@
 ARG DOCKERHUB=docker.io
-FROM ${DOCKERHUB}/otel/opentelemetry-collector-contrib:nightly AS opentelemetry-collector
+FROM ${DOCKERHUB}/otel/opentelemetry-collector-contrib:0.143.0 AS opentelemetry-collector
 
 # rootfs
 FROM scratch AS rootfs

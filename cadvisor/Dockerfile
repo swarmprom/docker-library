@@ -1,5 +1,5 @@
 ARG GHCR=ghcr.io
-FROM ${GHCR}/google/cadvisor:0.56 AS cadvisor
+FROM ${GHCR}/google/cadvisor:0.56.1 AS cadvisor
 
 # rootfs
 FROM scratch AS rootfs
