@@ -36,20 +36,15 @@ otlp:
     - database # used by otelcol/receiver/mongodb
     - kafka.cluster.alias
 
-# Alertmanager configuration
-alerting:
-  alertmanagers:
-    - static_configs:
-        - targets:
-          # - alertmanager:9093
-
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
   - "/etc/prometheus/rules.d/*"
+  - "/prometheus-rules.d/*"
 
 # Load additional scrape configurations from separate files.
 scrape_config_files:
   - "/etc/prometheus/configs.d/*"
+  - "/prometheus-configs.d/*"
 
 storage:
   tsdb:
