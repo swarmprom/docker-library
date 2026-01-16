@@ -1,7 +1,7 @@
 FROM scratch
 
 COPY --link --from=alpine / /
-COPY --link --from=aio-otel-lgmt-rootfs / /
+COPY --link --from=aio-otel-lgmt / /
 COPY --link --from=blackbox-exporter / /
 COPY --link --from=cadvisor / /
 COPY --link --from=grafana / /

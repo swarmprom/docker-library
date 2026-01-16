@@ -57,7 +57,7 @@ target "aio" {
     context = "aio"
     contexts = {
       alpine = "target:alpine"
-      aio-otel-lgmt-rootfs = "target:aio-otel-lgmt-rootfs"
+      aio-otel-lgmt = "target:aio-otel-lgmt-rootfs"
       blackbox-exporter = "target:blackbox-exporter-rootfs"
       cadvisor = "target:cadvisor-rootfs"
       grafana = "target:grafana-rootfs"
