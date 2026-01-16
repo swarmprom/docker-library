@@ -234,6 +234,19 @@ target "pyroscope" {
     ]
 }
 
+target "pyroscope-alloy-ebpf" {
+    inherits = [ "dockerfile" ]
+    context = "pyroscope-alloy-ebpf"
+    contexts = {
+      "alpine" = "target:alpine"
+    }
+    args = {}
+    tags = [
+        dockerhub("pyroscope-alloy-ebpf", "latest"),
+        ghcr("pyroscope-alloy-ebpf", "latest"),
+    ]
+}
+
 target "tempo" {
     inherits = [ "dockerfile" ]
     context = "tempo"

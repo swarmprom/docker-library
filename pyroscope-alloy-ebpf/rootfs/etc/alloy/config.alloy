@@ -1,0 +1,14 @@
+discovery.docker "local" {
+  host = "unix:///var/run/docker.sock"
+}
+
+pyroscope.ebpf "instance" {
+  forward_to = [pyroscope.write.endpoint.receiver]
+  targets = discovery.docker.local.targets
+}
+
+pyroscope.write "endpoint" {
+  endpoint {
+    url = "http://127.0.0.1:4040"
+  }
+}
