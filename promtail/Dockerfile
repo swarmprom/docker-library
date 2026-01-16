@@ -13,4 +13,4 @@ ADD rootfs /
 
 COPY --from=build /src/loki/clients/cmd/promtail/promtail /usr/local/bin/promtail
 EXPOSE 9080/tcp
-# VOLUME [ "/data/promtail" ]
+VOLUME [ "/data/promtail" ]
