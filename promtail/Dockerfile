@@ -2,6 +2,8 @@ ARG DOCKERHUB=docker.io
 ARG GO_VERSION=1.25
 ARG LOKI_VERSION=3.6.3
 
+FROM grafana/promtail:${LOKI_VERSION} AS promtail
+
 FROM ${DOCKERHUB}/golang:${GO_VERSION}-alpine AS build
 RUN apk add --no-cache bash git make gcc musl-dev
 ARG LOKI_VERSION
@@ -12,7 +14,9 @@ RUN make clean && make BUILD_IN_CONTAINER=false PROMTAIL_JOURNAL_ENABLED=false I
 # rootfs
 FROM scratch AS rootfs
 ADD rootfs /
-COPY --from=build /src/loki/clients/cmd/promtail/promtail /usr/local/bin/promtail
+# COPY --from=build /src/loki/clients/cmd/promtail/promtail /usr/local/bin/promtail
+COPY --from=promtail /usr/bin/promtail /usr/local/bin/promtail
+# COPY --from=promtail /etc/promtail/config.yml /etc/promtail/config.yml
 
 # final image
 FROM base
