@@ -61,13 +61,11 @@ target "aio" {
       alloy = "target:alloy-rootfs"
       # aio-otel-lgmt = "target:aio-otel-lgmt-rootfs"
       blackbox-exporter = "target:blackbox-exporter-rootfs"
-      # cadvisor = "target:cadvisor-rootfs"
       grafana = "target:grafana-rootfs"
       loki = "target:loki-rootfs"
       node-exporter = "target:node-exporter-rootfs"
       opentelemetry-collector = "target:opentelemetry-collector-rootfs"
       prometheus = "target:prometheus-rootfs"
-      # promtail = "target:promtail-rootfs"
       pushgateway = "target:pushgateway-rootfs"
       pyroscope = "target:pyroscope-rootfs"
       tempo = "target:tempo-rootfs"
@@ -85,7 +83,6 @@ target "aio-exporters" {
     contexts = {
       base = "target:${BASE_TARGET_CONTEXT}"
       blackbox-exporter = "target:blackbox-exporter-rootfs"
-      cadvisor = "target:cadvisor-rootfs"
       node-exporter = "target:node-exporter-rootfs"
     }
     args = {}
@@ -104,7 +101,6 @@ target "aio-otel-lgmt" {
       loki = "target:loki-rootfs"
       opentelemetry-collector = "target:opentelemetry-collector-rootfs"
       prometheus = "target:prometheus-rootfs"
-      promtail = "target:promtail-rootfs"
       pyroscope = "target:pyroscope-rootfs"
       tempo = "target:tempo-rootfs"
     }
@@ -140,13 +136,11 @@ target "images" {
     "name" = [
       "alloy",
       "blackbox-exporter",
-      "cadvisor",
       "grafana",
       "loki",
       "node-exporter",
       "opentelemetry-collector",
       "prometheus",
-      "promtail",
       "pushgateway",
       "pyroscope",
       "pyroscope-alloy-ebpf",
@@ -172,13 +166,11 @@ target "rootfs" {
       "alloy",
       "alpine",
       "blackbox-exporter",
-      "cadvisor",
       "grafana",
       "loki",
       "node-exporter",
       "opentelemetry-collector",
       "prometheus",
-      "promtail",
       "pushgateway",
       "pyroscope",
       "pyroscope-alloy-ebpf",

@@ -18,8 +18,6 @@ ADD https://raw.githubusercontent.com/grafana/docker-otel-lgtm/refs/tags/${DOCKE
 
 # blackbox-exporter
 EXPOSE 9115/tcp
-# cadvisor
-# EXPOSE 8080/tcp
 # grafana
 EXPOSE 3000/tcp
 # loki
@@ -31,8 +29,6 @@ EXPOSE 4318/tcp
 EXPOSE 4317/tcp
 # prometheus
 EXPOSE 9090/tcp
-# promtail
-EXPOSE 9080/tcp
 # pushgateway
 EXPOSE 9091/tcp
 # pyroscope

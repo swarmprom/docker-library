@@ -15,7 +15,6 @@ COPY --link --from=grafana / /
 COPY --link --from=loki / /
 COPY --link --from=opentelemetry-collector / /
 COPY --link --from=prometheus / /
-COPY --link --from=promtail / /
 COPY --link --from=pyroscope / /
 COPY --link --from=tempo / /
 
@@ -28,8 +27,6 @@ EXPOSE 4318/tcp
 EXPOSE 4317/tcp
 # prometheus
 EXPOSE 9090/tcp
-# promtail
-EXPOSE 9080/tcp
 # pyroscope
 EXPOSE 4040/tcp
 # tempo
