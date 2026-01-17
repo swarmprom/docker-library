@@ -37,6 +37,8 @@ group "default" {
   targets = [
         "aio",
         "aio-otel-lgmt",
+        "alpine",
+        "ubuntu",
         "images",
     ]
 }
@@ -158,6 +160,7 @@ target "rootfs" {
       "pyroscope",
       "pyroscope-alloy-ebpf",
       "tempo",
+      "ubuntu",
     ]
   }
   name = "${name}-rootfs"
