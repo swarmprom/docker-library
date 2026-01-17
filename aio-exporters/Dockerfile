@@ -1,6 +1,6 @@
 FROM scratch
 
-COPY --link --from=alpine / /
+COPY --link --from=base / /
 COPY --link --from=blackbox-exporter / /
 COPY --link --from=node-exporter / /
 COPY --link --from=cadvisor / /

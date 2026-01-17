@@ -9,6 +9,6 @@ ADD rootfs /
 COPY --from=pushgateway /bin/pushgateway /usr/local/bin/pushgateway
 
 # final image
-FROM alpine
+FROM base
 COPY --from=rootfs / /
 EXPOSE 9091/tcp

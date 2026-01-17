@@ -12,7 +12,7 @@ ADD https://raw.githubusercontent.com/grafana/docker-otel-lgtm/refs/tags/${DOCKE
 COPY --from=opentelemetry-collector /otelcol-contrib /usr/local/bin/otelcol-contrib
 
 # final image
-FROM alpine
+FROM base
 COPY --from=rootfs / /
 EXPOSE 4318/tcp
 EXPOSE 4317/tcp

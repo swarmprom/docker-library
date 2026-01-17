@@ -12,7 +12,7 @@ COPY --from=pyroscope /usr/bin/profilecli /usr/local/bin/profilecli
 COPY --from=pyroscope /usr/bin/pyroscope /usr/local/bin/pyroscope
 
 # final image
-FROM alpine
+FROM base
 COPY --from=rootfs / /
 EXPOSE 4040/tcp
 VOLUME [ "/data/pyroscope" ]

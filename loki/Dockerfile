@@ -11,7 +11,7 @@ ADD https://raw.githubusercontent.com/grafana/docker-otel-lgtm/refs/tags/${DOCKE
 COPY --from=loki /usr/bin/loki /usr/local/bin/loki
 
 # final image
-FROM alpine
+FROM base
 COPY --from=rootfs / /
 EXPOSE 3100/tcp
 VOLUME [ "/data/loki" ]

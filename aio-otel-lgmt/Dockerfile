@@ -10,7 +10,7 @@ ADD https://raw.githubusercontent.com/grafana/docker-otel-lgtm/refs/tags/${DOCKE
 # final image
 FROM scratch
 
-COPY --link --from=alpine / /
+COPY --link --from=base / /
 COPY --link --from=grafana / /
 COPY --link --from=loki / /
 COPY --link --from=opentelemetry-collector / /

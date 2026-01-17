@@ -52,12 +52,13 @@ target "alpine" {
     ]
 }
 
+variable "BASE_TARGET_CONTEXT" { default = "ubuntu" }
 target "aio" {
     inherits = [ "dockerfile" ]
     context = "aio"
     contexts = {
-      alpine = "target:alpine"
       aio-otel-lgmt = "target:aio-otel-lgmt-rootfs"
+      base = "target:${BASE_TARGET_CONTEXT}"
       blackbox-exporter = "target:blackbox-exporter-rootfs"
       cadvisor = "target:cadvisor-rootfs"
       grafana = "target:grafana-rootfs"
@@ -81,10 +82,10 @@ target "aio-exporters" {
     inherits = [ "dockerfile" ]
     context = "aio-exporters"
     contexts = {
-      "alpine" = "target:alpine"
-      "blackbox-exporter" = "target:blackbox-exporter-rootfs"
-      "cadvisor" = "target:cadvisor-rootfs"
-      "node-exporter" = "target:node-exporter-rootfs"
+      base = "target:${BASE_TARGET_CONTEXT}"
+      blackbox-exporter = "target:blackbox-exporter-rootfs"
+      cadvisor = "target:cadvisor-rootfs"
+      node-exporter = "target:node-exporter-rootfs"
     }
     args = {}
     tags = [
@@ -97,14 +98,14 @@ target "aio-otel-lgmt" {
     inherits = [ "dockerfile" ]
     context = "aio-otel-lgmt"
     contexts = {
-      "alpine" = "target:alpine"
-      "grafana" = "target:grafana-rootfs"
-      "loki" = "target:loki-rootfs"
-      "opentelemetry-collector" = "target:opentelemetry-collector-rootfs"
-      "prometheus" = "target:prometheus-rootfs"
-      "promtail" = "target:promtail-rootfs"
-      "pyroscope" = "target:pyroscope-rootfs"
-      "tempo" = "target:tempo-rootfs"
+      base = "target:${BASE_TARGET_CONTEXT}"
+      grafana = "target:grafana-rootfs"
+      loki = "target:loki-rootfs"
+      opentelemetry-collector = "target:opentelemetry-collector-rootfs"
+      prometheus = "target:prometheus-rootfs"
+      promtail = "target:promtail-rootfs"
+      pyroscope = "target:pyroscope-rootfs"
+      tempo = "target:tempo-rootfs"
     }
     args = {}
     tags = [
@@ -113,10 +114,19 @@ target "aio-otel-lgmt" {
     ]
 }
 
+target "alpine" {
+    inherits = [ "dockerfile" ]
+    context = "alpine"
+    args = {}
+    tags = [
+        # dockerhub("alpine", "latest"),
+        ghcr("alpine", "latest"),
+    ]
+}
+
 target "images" {
   matrix = {
     "name" = [
-      "alpine",
       "blackbox-exporter",
       "cadvisor",
       "grafana",
@@ -134,6 +144,9 @@ target "images" {
   name = "${name}"
   context = name
   inherits = [ "dockerfile" ]
+  contexts = {
+    base = "target:${BASE_TARGET_CONTEXT}"
+  }
   tags = [
       // dockerhub(name, "latest"),
       ghcr(name, "latest"),

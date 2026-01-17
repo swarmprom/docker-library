@@ -10,6 +10,6 @@ COPY --from=blackbox-exporter /bin/blackbox_exporter /usr/local/bin/blackbox_exp
 COPY --from=blackbox-exporter /etc/blackbox_exporter/config.yml /etc/blackbox_exporter/config.yml
 
 # final image
-FROM alpine
+FROM base
 COPY --from=rootfs / /
 EXPOSE 9115/tcp

@@ -15,7 +15,7 @@ ADD rootfs /
 COPY --from=build /src/loki/clients/cmd/promtail/promtail /usr/local/bin/promtail
 
 # final image
-FROM alpine
+FROM base
 COPY --from=rootfs / /
 EXPOSE 9080/tcp
 VOLUME [ "/data/promtail" ]

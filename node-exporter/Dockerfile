@@ -9,6 +9,6 @@ ADD rootfs /
 COPY --from=node-exporter /bin/node_exporter /usr/local/bin/node_exporter
 
 # final image
-FROM alpine
+FROM base
 COPY --from=rootfs / /
 EXPOSE 9100/tcp

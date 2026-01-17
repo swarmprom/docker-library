@@ -11,7 +11,7 @@ ADD https://raw.githubusercontent.com/grafana/docker-otel-lgtm/refs/tags/${DOCKE
 COPY --from=tempo /tempo /usr/local/bin/tempo
 
 # final image
-FROM alpine
+FROM base
 COPY --from=rootfs / /
 EXPOSE 3200/tcp
 VOLUME [ "/data/tempo"]

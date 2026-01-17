@@ -10,6 +10,6 @@ COPY --from=cadvisor /usr/local/lib/libpfm.so* /usr/local/lib/
 COPY --from=cadvisor /usr/bin/cadvisor /usr/local/bin/cadvisor
 
 # final image
-FROM alpine
+FROM base
 COPY --from=rootfs / /
 EXPOSE 8080/tcp
