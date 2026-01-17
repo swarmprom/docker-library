@@ -124,6 +124,16 @@ target "alpine" {
     ]
 }
 
+target "ubuntu" {
+    inherits = [ "dockerfile" ]
+    context = "ubuntu"
+    args = {}
+    tags = [
+        # dockerhub("ubuntu", "latest"),
+        ghcr("ubuntu", "latest"),
+    ]
+}
+
 target "images" {
   matrix = {
     "name" = [
