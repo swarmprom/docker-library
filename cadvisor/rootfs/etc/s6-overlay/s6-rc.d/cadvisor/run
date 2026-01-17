@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-source /var/cadvisor/default
-exec 2>&1
-exec cadvisor \
-		--docker_only \
-		--housekeeping_interval=30s

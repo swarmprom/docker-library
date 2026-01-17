@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-exec 2>&1
-exec promtail \
-		--config.expand-env=true \
-		--config.file=/etc/promtail/config.yml \
-		--server.enable-runtime-reload
