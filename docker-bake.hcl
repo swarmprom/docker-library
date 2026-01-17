@@ -137,6 +137,7 @@ target "ubuntu" {
 target "images" {
   matrix = {
     "name" = [
+      "alloy",
       "blackbox-exporter",
       "cadvisor",
       "grafana",
@@ -167,6 +168,7 @@ target "rootfs" {
   matrix = {
     "name" = [
       "aio-otel-lgmt",
+      "alloy",
       "alpine",
       "blackbox-exporter",
       "cadvisor",
