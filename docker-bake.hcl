@@ -36,7 +36,6 @@ target "dockerfile" {
 group "default" {
   targets = [
         "aio",
-        "aio-exporters",
         "aio-otel-lgmt",
         "images",
     ]
@@ -74,21 +73,6 @@ target "aio" {
     tags = [
         // dockerhub("aio", "latest"),
         ghcr("aio", "latest"),
-    ]
-}
-
-target "aio-exporters" {
-    inherits = [ "dockerfile" ]
-    context = "aio-exporters"
-    contexts = {
-      base = "target:${BASE_TARGET_CONTEXT}"
-      blackbox-exporter = "target:blackbox-exporter-rootfs"
-      node-exporter = "target:node-exporter-rootfs"
-    }
-    args = {}
-    tags = [
-        // dockerhub("aio-exporters", "latest"),
-        ghcr("aio-exporters", "latest"),
     ]
 }
 
@@ -162,7 +146,6 @@ target "images" {
 target "rootfs" {
   matrix = {
     "name" = [
-      "aio-otel-lgmt",
       "alloy",
       "alpine",
       "blackbox-exporter",
