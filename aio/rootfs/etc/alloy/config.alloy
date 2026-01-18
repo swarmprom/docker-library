@@ -9,6 +9,7 @@ livedebugging {
 
 discovery.docker "local" {
   host = "unix:///var/run/docker.sock"
+  refresh_interval = "15s"
 }
 
 prometheus.remote_write "local" {
