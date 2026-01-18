@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-service=${1:-}
-while IFS= read -r line; do
-	echo "s6-log=${service} | ${line}"
-done

@@ -37,19 +37,8 @@ group "default" {
   targets = [
         "aio",
         "aio-otel-lgmt",
-        "alpine",
         "ubuntu",
         "images",
-    ]
-}
-
-target "alpine" {
-    inherits = [ "dockerfile" ]
-    context = "alpine"
-    args = {}
-    tags = [
-        // dockerhub("alpine", "latest"),
-        ghcr("alpine", "latest"),
     ]
 }
 
