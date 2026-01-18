@@ -5,7 +5,6 @@ exec node_exporter \
 		--path.sysfs=/sys \
 		--path.procfs=/proc \
 		--path.udev.data=/rootfs/run/udev/data \
-		--collector.systemd \
 		--collector.processes \
 		--collector.textfile.directory=/etc/node-exporter \
 		--collector.filesystem.mount-points-exclude=^/\(sys\|proc\|dev\|host\|etc\)\(\$\|/\) \
