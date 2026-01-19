@@ -26,6 +26,15 @@ prometheus.remote_write "local" {
     }
 }
 
+prometheus.scrape "docker" {
+  scrape_interval = "15s"
+  scrape_timeout =  "5s"
+  targets = [
+    {"__address__" = "host.docker.internal:9323"},
+  ]
+  forward_to = [ prometheus.remote_write.local.receiver ]
+}
+
 prometheus.exporter.self "local" {}
 prometheus.scrape "grafana_alloy" {
   scrape_interval = "15s"
