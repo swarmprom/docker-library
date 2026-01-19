@@ -37,7 +37,7 @@ prometheus.scrape "grafana_alloy" {
 prometheus.exporter.cadvisor "local" {
   docker_host = "unix:///var/run/docker.sock"
   docker_only = true
-  storage_duration = "5m"
+  storage_duration = "15m"
 }
 prometheus.scrape "cadvisor" {
   scrape_interval = "15s"
