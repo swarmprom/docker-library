@@ -38,12 +38,17 @@ prometheus.scrape "cadvisor" {
   forward_to = [ prometheus.remote_write.local.receiver ]
 }
 
+prometheus.exporter.unix "node_exporter" {
+  rootfs_path = "/rootfs"
+  udev_data_path = "/rootfs/run/udev/data"
+  procfs_path = "/proc"
+  sysfs_path = "/sys"
+}
+
 prometheus.scrape "node_exporter" {
   scrape_interval = "15s"
   scrape_timeout =  "5s"
-  targets = [
-    {"__address__" = "127.0.0.1:9100"},
-  ]
+  targets = prometheus.exporter.unix.node_exporter.targets
   forward_to = [ prometheus.remote_write.local.receiver ]
 }
 
