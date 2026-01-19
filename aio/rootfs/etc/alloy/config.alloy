@@ -71,6 +71,10 @@ loki.source.docker "local" {
   refresh_interval = "15s"
   targets       = discovery.relabel.docker.output
   forward_to    = [ loki.process.docker.receiver ]
+  labels        = {
+    "job" = "loki.source.docker.local",
+    "app" = "docker",
+  }
 }
 loki.process "docker" {
   forward_to = [ loki.write.local.receiver ]
