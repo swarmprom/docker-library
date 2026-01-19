@@ -22,8 +22,6 @@ EXPOSE 9115/tcp
 EXPOSE 3000/tcp
 # loki
 EXPOSE 3100/tcp
-# node-exporter
-EXPOSE 9100/tcp
 # opentelemetry-collector
 EXPOSE 4318/tcp
 EXPOSE 4317/tcp
