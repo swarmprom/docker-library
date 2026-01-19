@@ -34,6 +34,15 @@ prometheus.scrape "grafana_alloy" {
   forward_to = [ prometheus.remote_write.local.receiver ]
 }
 
+prometheus.scrape "grafana_metrics" {
+  scrape_interval = "15s"
+  scrape_timeout =  "5s"
+  targets    = [
+    {"__address__" = "127.0.0.1:3000"},
+  ]
+  forward_to = [ prometheus.remote_write.local.receiver ]
+}
+
 prometheus.exporter.cadvisor "local" {
   docker_host = "unix:///var/run/docker.sock"
   docker_only = true
