@@ -11,6 +11,14 @@ discovery.docker "local" {
   host = "unix:///var/run/docker.sock"
   refresh_interval = "15s"
 }
+discovery.relabel "docker" {
+    targets = discovery.docker.local.targets
+    rule {
+        source_labels = [ "__meta_docker_container_name" ]
+        target_label = "service_name"
+        regex = "/(.+)"
+    }
+}
 
 prometheus.remote_write "local" {
     endpoint {
@@ -59,23 +67,12 @@ loki.write "local" {
 }
 
 loki.source.docker "local" {
-  host       = "unix:///var/run/docker.sock"
-  targets    = discovery.docker.local.targets
-  forward_to = [ loki.process.docker.receiver ]
+  host          = "unix:///var/run/docker.sock"
   refresh_interval = "15s"
-  relabel_rules = loki.relabel.docker.rules
+  targets       = discovery.relabel.docker.output
+  forward_to    = [ loki.process.docker.receiver ]
 }
-
 loki.process "docker" {
   forward_to = [ loki.write.local.receiver ]
   stage.docker {}
-}
-
-loki.relabel "docker" {
-    forward_to = []
-    rule {
-        source_labels = [ "__meta_docker_container_name" ]
-        target_label = "service_name"
-        regex = "/(.+)"
-    }
 }
