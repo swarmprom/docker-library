@@ -7,6 +7,18 @@ livedebugging {
   enabled = true
 }
 
+prometheus.remote_write "local" {
+    endpoint {
+        url = "http://127.0.0.1:9090/api/v1/write"
+    }
+}
+
+loki.write "local" {
+  endpoint {
+    url = "http://127.0.0.1:3100/loki/api/v1/push"
+  }
+}
+
 discovery.docker "local" {
   host = "unix:///var/run/docker.sock"
   refresh_interval = "15s"
@@ -25,12 +37,6 @@ discovery.relabel "docker" {
     rule {
         action = "labelmap"
         regex  = "__meta_docker_(container_label_com_docker_compose_(?:project|service))"
-    }
-}
-
-prometheus.remote_write "local" {
-    endpoint {
-        url = "http://127.0.0.1:9090/api/v1/write"
     }
 }
 
@@ -84,12 +90,6 @@ prometheus.scrape "node_exporter" {
   scrape_timeout =  "5s"
   targets = prometheus.exporter.unix.node_exporter.targets
   forward_to = [ prometheus.remote_write.local.receiver ]
-}
-
-loki.write "local" {
-  endpoint {
-    url = "http://127.0.0.1:3100/loki/api/v1/push"
-  }
 }
 
 loki.source.docker "local" {
