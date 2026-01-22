@@ -44,7 +44,11 @@ discovery.relabel "docker" {
     }
     rule {
         action = "labelmap"
-        regex  = "__meta_docker_(container_label_com_docker_compose_(?:project|service))"
+        regex  = "__meta_docker_(container_label_com_docker_compose_.+)"
+    }
+    rule {
+        action = "labelmap"
+        regex  = "__meta_docker_(container_label_com_docker_stack_.+|container_label_com_docker_swarm_.+)"
     }
 }
 
