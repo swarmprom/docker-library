@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 exec 2>&1
-exec alloy run /etc/alloy/config.alloy \
+exec alloy run /etc/alloy/ \
 		--server.http.listen-addr=0.0.0.0:12345 \
 		--storage.path=/data/alloy \
 		--disable-reporting=true
