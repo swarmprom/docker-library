@@ -1,10 +1,12 @@
 logging {
-  level  = "info"
-  format = "logfmt"
+    level  = "info"
+
+    // Forward internal logs to the local Loki instance.
+    write_to = [ loki.process.alloy_logs.receiver ]
 }
 
 livedebugging {
-  enabled = true
+    enabled = true
 }
 
 prometheus.remote_write "local" {
@@ -101,7 +103,6 @@ prometheus.exporter.unix "node_exporter" {
     device_exclude = "^(veth.*|cali.*|[a-f0-9]{15})$"
   }
 }
-
 prometheus.scrape "node_exporter" {
   scrape_interval = "15s"
   scrape_timeout =  "5s"
@@ -124,6 +125,27 @@ prometheus.relabel "self" {
         target_label    = "instance"
         replacement     = coalesce(sys.env("ALLOY_CONSTANTS_HOSTNAME"), constants.hostname)
     }
+}
+
+loki.process "alloy_logs" {
+   forward_to = [loki.relabel.alloy_logs.receiver]
+
+      stage.labels {
+        values = {
+            version = string.format("Hello%s", constants.version),
+        }
+    }
+}
+loki.relabel "alloy_logs"{
+    forward_to = [loki.write.local.receiver]
+	rule {
+		target_label = "instance"
+		replacement = string.format("version%s", constants.version)
+	}
+	rule {
+		target_label = "job"
+		replacement = "integrations/self"
+	}
 }
 
 loki.source.docker "local" {
