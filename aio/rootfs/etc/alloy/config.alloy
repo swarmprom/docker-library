@@ -62,8 +62,8 @@ discovery.relabel "docker" {
 }
 
 prometheus.scrape "docker" {
-	scrape_interval = "5s"
-	scrape_timeout  = "3s"
+	scrape_interval = "10s"
+	scrape_timeout  = "5s"
 	honor_labels    = true
 	targets         = [
 		{"__address__" = "host.docker.internal:9323", "instance" = "127.0.0.1:9323"},
@@ -115,7 +115,7 @@ prometheus.scrape "node_exporter" {
 }
 
 prometheus.scrape "grafana_stacks" {
-	scrape_interval = "15s"
+	scrape_interval = "30s"
 	scrape_timeout  = "5s"
 	targets         = [
 		{"__address__" = "127.0.0.1:3000", "job" = "prometheus.scrape.grafana"},
@@ -129,7 +129,7 @@ prometheus.scrape "grafana_stacks" {
 prometheus.exporter.self "local" { }
 
 prometheus.scrape "grafana_alloy" {
-	scrape_interval = "15s"
+	scrape_interval = "30s"
 	scrape_timeout  = "5s"
 	targets         = prometheus.exporter.self.local.targets
 	forward_to      = [prometheus.relabel.self.receiver]
@@ -170,7 +170,7 @@ loki.relabel "grafana_alloy_logs" {
 
 loki.source.docker "local" {
 	host             = "unix:///var/run/docker.sock"
-	refresh_interval = "15s"
+	refresh_interval = "30s"
 	targets          = discovery.relabel.docker.output
 	forward_to       = [loki.process.docker.receiver]
 	labels           = {
