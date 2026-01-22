@@ -55,7 +55,7 @@ target "aio" {
       grafana = "target:grafana-rootfs"
       loki = "target:loki-rootfs"
       # node-exporter = "target:node-exporter-rootfs"
-      # opentelemetry-collector = "target:opentelemetry-collector-rootfs"
+      opentelemetry-collector = "target:opentelemetry-collector-rootfs"
       prometheus = "target:prometheus-rootfs"
       # pushgateway = "target:pushgateway-rootfs"
       pyroscope = "target:pyroscope-rootfs"
