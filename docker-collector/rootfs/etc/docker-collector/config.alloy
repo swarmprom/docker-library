@@ -1,0 +1,152 @@
+logging {
+	level = "info"
+}
+
+livedebugging {
+	enabled = true
+}
+
+prometheus.remote_write "local" {
+	endpoint {
+		url = string.format(
+			"http://%s/api/v1/write",
+			coalesce(sys.env("PROMETHEUS_HOST"), "127.0.0.1:9090"),
+		)
+	}
+}
+
+loki.write "local" {
+	endpoint {
+		url = string.format(
+			"http://%s/loki/api/v1/push",
+			coalesce(sys.env("LOKI_HOST"), "127.0.0.1:3100"),
+		)
+	}
+}
+
+discovery.docker "local" {
+	host             = "unix:///var/run/docker.sock"
+	refresh_interval = "10s"
+}
+
+discovery.relabel "docker" {
+	targets = discovery.docker.local.targets
+
+	rule {
+		target_label = "instance"
+		replacement  = coalesce(sys.env("ALLOY_CONSTANTS_HOSTNAME"), constants.hostname)
+	}
+
+	rule {
+		target_label = "platform"
+		replacement  = "docker"
+	}
+
+	rule {
+		source_labels = ["__meta_docker_container_name"]
+		target_label  = "service_name"
+		regex         = "/(.+)"
+	}
+
+	rule {
+		action = "labelmap"
+		regex  = "__meta_docker_(container_label_org_opencontainers_.+)"
+	}
+
+	rule {
+		action = "labelmap"
+		regex  = "__meta_docker_(container_label_com_docker_compose_.+)"
+	}
+
+	rule {
+		action = "labelmap"
+		regex  = "__meta_docker_(container_label_com_docker_stack_.+|container_label_com_docker_swarm_.+)"
+	}
+}
+
+prometheus.scrape "docker_engine" {
+	scrape_interval = "5s"
+	scrape_timeout  = "2s"
+	honor_labels    = true
+	targets         = [
+		{"__address__" = "host.docker.internal:9323", "instance" = "127.0.0.1:9323"},
+	]
+	forward_to = [prometheus.relabel.self.receiver]
+}
+
+prometheus.exporter.cadvisor "local" {
+	docker_host      = "unix:///var/run/docker.sock"
+	docker_only      = true
+	storage_duration = "15m"
+}
+
+prometheus.scrape "cadvisor" {
+	scrape_interval = "10s"
+	scrape_timeout  = "5s"
+	targets         = prometheus.exporter.cadvisor.local.targets
+	forward_to      = [prometheus.relabel.self.receiver]
+}
+
+prometheus.exporter.unix "local" {
+	rootfs_path        = "/rootfs"
+	udev_data_path     = "/rootfs/run/udev/data"
+	procfs_path        = "/proc"
+	sysfs_path         = "/sys"
+	disable_collectors = ["ipvs", "btrfs", "infiniband", "xfs", "zfs"]
+	enable_collectors  = ["meminfo"]
+
+	filesystem {
+		fs_types_exclude     = "^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|tmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$"
+		mount_points_exclude = "^/(dev|proc|run/secrets/.+|sys|var/lib/docker/.+)($|/)"
+		mount_timeout        = "5s"
+	}
+
+	netclass {
+		ignored_devices = "^(veth.*|cali.*|[a-f0-9]{15})$"
+	}
+
+	netdev {
+		device_exclude = "^(veth.*|cali.*|[a-f0-9]{15})$"
+	}
+}
+
+prometheus.scrape "node_exporter" {
+	scrape_interval = "10s"
+	scrape_timeout  = "5s"
+	targets         = prometheus.exporter.unix.local.targets
+	forward_to      = [prometheus.relabel.self.receiver]
+}
+
+prometheus.exporter.self "local" { }
+
+prometheus.scrape "grafana_alloy" {
+	scrape_interval = "30s"
+	scrape_timeout  = "5s"
+	targets         = prometheus.exporter.self.local.targets
+	forward_to      = [prometheus.relabel.self.receiver]
+}
+
+prometheus.relabel "self" {
+	forward_to = [prometheus.remote_write.local.receiver]
+
+	rule {
+		target_label = "instance"
+		replacement  = coalesce(sys.env("ALLOY_CONSTANTS_HOSTNAME"), constants.hostname)
+	}
+}
+
+loki.source.docker "local" {
+	host             = "unix:///var/run/docker.sock"
+	refresh_interval = "10s"
+	targets          = discovery.relabel.docker.output
+	forward_to       = [loki.process.docker.receiver]
+	labels           = {
+		"job" = "loki.source.docker.local",
+	}
+}
+
+loki.process "docker" {
+	forward_to = [loki.write.local.receiver]
+
+	stage.docker { }
+}

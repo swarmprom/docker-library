@@ -111,6 +111,7 @@ target "images" {
     "name" = [
       "alloy",
       "blackbox-exporter",
+      "docker-collector",
       "grafana",
       "loki",
       "node-exporter",
@@ -138,8 +139,8 @@ target "rootfs" {
   matrix = {
     "name" = [
       "alloy",
-      "alpine",
       "blackbox-exporter",
+      "docker-collector",
       "grafana",
       "loki",
       "node-exporter",
