@@ -41,8 +41,9 @@ discovery.relabel "docker" {
 }
 
 prometheus.scrape "docker" {
-  scrape_interval = "15s"
-  scrape_timeout =  "5s"
+  scrape_interval = "5s"
+  scrape_timeout =  "3s"
+  honor_labels = true
   targets = [
     {"__address__" = "host.docker.internal:9323"},
   ]
