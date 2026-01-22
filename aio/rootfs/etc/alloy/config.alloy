@@ -146,7 +146,7 @@ loki.process "alloy_logs" {
 
 	stage.labels {
 		values = {
-			version = string.format("Hello%s", constants.version),
+			version = constants.version,
 		}
 	}
 }
@@ -155,13 +155,13 @@ loki.relabel "alloy_logs" {
 	forward_to = [loki.write.local.receiver]
 
 	rule {
-		target_label = "instance"
-		replacement  = string.format("version%s", constants.version)
+		target_label = "job"
+		replacement  = "integrations/self"
 	}
 
 	rule {
-		target_label = "job"
-		replacement  = "integrations/self"
+		target_label = "instance"
+		replacement  = coalesce(sys.env("ALLOY_CONSTANTS_HOSTNAME"), constants.hostname)
 	}
 }
 
