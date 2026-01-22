@@ -24,13 +24,13 @@ loki.write "local" {
 	}
 }
 
-discovery.docker "local" {
+discovery.docker "system" {
 	host             = "unix:///var/run/docker.sock"
 	refresh_interval = "10s"
 }
 
 discovery.relabel "docker" {
-	targets = discovery.docker.local.targets
+	targets = discovery.docker.system.targets
 
 	rule {
 		target_label = "instance"
@@ -64,30 +64,30 @@ discovery.relabel "docker" {
 	}
 }
 
-prometheus.scrape "docker_engine" {
+prometheus.scrape "docker_engine_metrics" {
 	scrape_interval = "5s"
 	scrape_timeout  = "2s"
 	honor_labels    = true
 	targets         = [
 		{"__address__" = "host.docker.internal:9323", "instance" = "127.0.0.1:9323"},
 	]
-	forward_to = [prometheus.relabel.self.receiver]
+	forward_to = [prometheus.relabel.rules.receiver]
 }
 
-prometheus.exporter.cadvisor "local" {
+prometheus.exporter.cadvisor "system" {
 	docker_host      = "unix:///var/run/docker.sock"
 	docker_only      = true
 	storage_duration = "15m"
 }
 
-prometheus.scrape "cadvisor" {
+prometheus.scrape "cadvisor_metrics" {
 	scrape_interval = "10s"
 	scrape_timeout  = "5s"
-	targets         = prometheus.exporter.cadvisor.local.targets
-	forward_to      = [prometheus.relabel.self.receiver]
+	targets         = prometheus.exporter.cadvisor.system.targets
+	forward_to      = [prometheus.relabel.rules.receiver]
 }
 
-prometheus.exporter.unix "local" {
+prometheus.exporter.unix "system" {
 	rootfs_path        = "/rootfs"
 	udev_data_path     = "/rootfs/run/udev/data"
 	procfs_path        = "/proc"
@@ -110,59 +110,35 @@ prometheus.exporter.unix "local" {
 	}
 }
 
-prometheus.scrape "node_exporter" {
+prometheus.scrape "unix_metrics" {
 	scrape_interval = "10s"
 	scrape_timeout  = "5s"
-	targets         = prometheus.exporter.unix.local.targets
-	forward_to      = [prometheus.relabel.self.receiver]
+	targets         = prometheus.exporter.unix.system.targets
+	forward_to      = [prometheus.relabel.rules.receiver]
 }
 
-prometheus.scrape "grafana" {
+prometheus.scrape "grafana_stacks_metrics" {
 	scrape_interval = "30s"
 	scrape_timeout  = "5s"
 	targets         = [
-		{"__address__" = "127.0.0.1:3000"},
+		{"__address__" = "127.0.0.1:3000", "job" = "prometheus.scrape.grafana"},
+		{"__address__" = "127.0.0.1:3100", "job" = "prometheus.scrape.loki"},
+		{"__address__" = "127.0.0.1:3200", "job" = "prometheus.scrape.pyroscope"},
+		{"__address__" = "127.0.0.1:4040", "job" = "prometheus.scrape.tempo"},
 	]
-	forward_to = [prometheus.relabel.self.receiver]
+	forward_to = [prometheus.relabel.rules.receiver]
 }
 
-prometheus.scrape "loki" {
+prometheus.exporter.self "alloy" { }
+
+prometheus.scrape "alloy_metrics" {
 	scrape_interval = "30s"
 	scrape_timeout  = "5s"
-	targets         = [
-		{"__address__" = "127.0.0.1:3100"},
-	]
-	forward_to = [prometheus.relabel.self.receiver]
+	targets         = prometheus.exporter.self.alloy.targets
+	forward_to      = [prometheus.relabel.rules.receiver]
 }
 
-prometheus.scrape "pyroscope" {
-	scrape_interval = "30s"
-	scrape_timeout  = "5s"
-	targets         = [
-		{"__address__" = "127.0.0.1:3200"},
-	]
-	forward_to = [prometheus.relabel.self.receiver]
-}
-
-prometheus.scrape "tempo" {
-	scrape_interval = "30s"
-	scrape_timeout  = "5s"
-	targets         = [
-		{"__address__" = "127.0.0.1:4040"},
-	]
-	forward_to = [prometheus.relabel.self.receiver]
-}
-
-prometheus.exporter.self "local" { }
-
-prometheus.scrape "alloy" {
-	scrape_interval = "30s"
-	scrape_timeout  = "5s"
-	targets         = prometheus.exporter.self.local.targets
-	forward_to      = [prometheus.relabel.self.receiver]
-}
-
-prometheus.relabel "self" {
+prometheus.relabel "rules" {
 	forward_to = [prometheus.remote_write.local.receiver]
 
 	rule {
@@ -171,13 +147,13 @@ prometheus.relabel "self" {
 	}
 }
 
-loki.source.docker "local" {
+loki.source.docker "system" {
 	host             = "unix:///var/run/docker.sock"
 	refresh_interval = "10s"
 	targets          = discovery.relabel.docker.output
 	forward_to       = [loki.process.docker.receiver]
 	labels           = {
-		"job" = "loki.source.docker.local",
+		"job" = "loki.source.docker.system",
 	}
 }
 
