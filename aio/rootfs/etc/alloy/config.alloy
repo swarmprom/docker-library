@@ -26,6 +26,10 @@ discovery.docker "local" {
 discovery.relabel "docker" {
     targets = discovery.docker.local.targets
     rule {
+        target_label    = "platform"
+        replacement     = "docker"
+    }
+    rule {
         source_labels = [ "__meta_docker_container_name" ]
         target_label = "service_name"
         regex = "/(.+)"
@@ -100,7 +104,6 @@ loki.source.docker "local" {
   forward_to    = [ loki.process.docker.receiver ]
   labels        = {
     "job" = "loki.source.docker.local",
-    "app" = "docker",
   }
 }
 loki.process "docker" {
