@@ -2,7 +2,7 @@ logging {
 	level = "info"
 
 	// Forward internal logs to the local Loki instance.
-	write_to = [loki.process.alloy_logs.receiver]
+	write_to = [loki.process.grafana_alloy_logs.receiver]
 }
 
 livedebugging {
@@ -71,15 +71,6 @@ prometheus.scrape "docker" {
 	forward_to = [prometheus.relabel.self.receiver]
 }
 
-prometheus.exporter.self "local" { }
-
-prometheus.scrape "grafana_alloy" {
-	scrape_interval = "15s"
-	scrape_timeout  = "5s"
-	targets         = prometheus.exporter.self.local.targets
-	forward_to      = [prometheus.relabel.self.receiver]
-}
-
 prometheus.exporter.cadvisor "local" {
 	docker_host      = "unix:///var/run/docker.sock"
 	docker_only      = true
@@ -123,13 +114,25 @@ prometheus.scrape "node_exporter" {
 	forward_to      = [prometheus.relabel.self.receiver]
 }
 
-prometheus.scrape "grafana_metrics" {
+prometheus.scrape "grafana_stacks" {
 	scrape_interval = "15s"
 	scrape_timeout  = "5s"
 	targets         = [
-		{"__address__" = "127.0.0.1:3000"},
+		{"__address__" = "127.0.0.1:3000", "job" = "prometheus.scrape.grafana"},
+		{"__address__" = "127.0.0.1:3100", "job" = "prometheus.scrape.grafana_loki"},
+		{"__address__" = "127.0.0.1:3200", "job" = "prometheus.scrape.pyroscope"},
+		{"__address__" = "127.0.0.1:4040", "job" = "prometheus.scrape.tempo"},
 	]
 	forward_to = [prometheus.relabel.self.receiver]
+}
+
+prometheus.exporter.self "local" { }
+
+prometheus.scrape "grafana_alloy" {
+	scrape_interval = "15s"
+	scrape_timeout  = "5s"
+	targets         = prometheus.exporter.self.local.targets
+	forward_to      = [prometheus.relabel.self.receiver]
 }
 
 prometheus.relabel "self" {
@@ -141,8 +144,8 @@ prometheus.relabel "self" {
 	}
 }
 
-loki.process "alloy_logs" {
-	forward_to = [loki.relabel.alloy_logs.receiver]
+loki.process "grafana_alloy_logs" {
+	forward_to = [loki.relabel.grafana_alloy_logs.receiver]
 
 	stage.labels {
 		values = {
@@ -151,7 +154,7 @@ loki.process "alloy_logs" {
 	}
 }
 
-loki.relabel "alloy_logs" {
+loki.relabel "grafana_alloy_logs" {
 	forward_to = [loki.write.local.receiver]
 
 	rule {
