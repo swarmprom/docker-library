@@ -1,8 +1,0 @@
-prometheus.remote_write "local" {
-	endpoint {
-		url = string.format(
-			"http://%s/api/v1/write",
-			coalesce(sys.env("PROMETHEUS_HOST"), "127.0.0.1:9090"),
-		)
-	}
-}

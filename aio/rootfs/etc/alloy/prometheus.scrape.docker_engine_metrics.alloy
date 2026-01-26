@@ -1,9 +1,0 @@
-prometheus.scrape "docker_engine_metrics" {
-	scrape_interval = "5s"
-	scrape_timeout  = "2s"
-	honor_labels    = true
-	targets         = [
-		{"__address__" = "host.docker.internal:9323", "instance" = "127.0.0.1:9323"},
-	]
-	forward_to = [prometheus.relabel.rules.receiver]
-}

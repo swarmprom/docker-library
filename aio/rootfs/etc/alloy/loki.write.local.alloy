@@ -1,8 +1,0 @@
-loki.write "local" {
-	endpoint {
-		url = string.format(
-			"http://%s/loki/api/v1/push",
-			coalesce(sys.env("LOKI_HOST"), "127.0.0.1:3100"),
-		)
-	}
-}
