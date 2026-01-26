@@ -1,5 +1,5 @@
 ARG DOCKERHUB=docker.io
-ARG S6_VERSION=v3.2.1.0
+ARG S6_VERSION=v3.2.2.0
 ARG UBUNTU_VERSION=noble
 
 FROM ${DOCKERHUB}/socheatsok78/s6-overlay:${S6_VERSION} AS s6-overlay
