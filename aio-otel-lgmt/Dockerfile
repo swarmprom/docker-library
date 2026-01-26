@@ -17,6 +17,7 @@ COPY --link --from=opentelemetry-collector / /
 COPY --link --from=prometheus / /
 COPY --link --from=pyroscope / /
 COPY --link --from=tempo / /
+COPY --link --from=rootfs / /
 
 # grafana
 EXPOSE 3000/tcp
@@ -32,7 +33,6 @@ EXPOSE 4040/tcp
 # tempo
 EXPOSE 3200/tcp
 
-ADD rootfs /
 ENTRYPOINT [ "/init-shim" ]
 CMD [ "sleep", "infinity" ]
 VOLUME [ "/data"]
