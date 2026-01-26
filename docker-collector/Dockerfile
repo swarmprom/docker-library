@@ -12,4 +12,4 @@ COPY --from=alloy /etc/alloy/config.alloy /etc/alloy/config.alloy
 # final image
 FROM base
 COPY --from=rootfs / /
-EXPOSE 12345/tcp
+EXPOSE 12344/tcp
