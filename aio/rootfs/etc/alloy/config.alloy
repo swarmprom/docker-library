@@ -13,6 +13,10 @@ prometheus.remote_write "local" {
 			coalesce(sys.env("PROMETHEUS_HOST"), "127.0.0.1:9090"),
 		)
 	}
+
+	external_labels = {
+		cluster = coalesce(sys.env("ALLOY_EXTERNAL_LABELS_CLUSTER"), sys.env("ALLOY_CONSTANTS_HOSTNAME"), constants.hostname),
+	}
 }
 
 loki.write "local" {
@@ -21,6 +25,10 @@ loki.write "local" {
 			"http://%s/loki/api/v1/push",
 			coalesce(sys.env("LOKI_HOST"), "127.0.0.1:3100"),
 		)
+	}
+
+	external_labels = {
+		cluster = coalesce(sys.env("ALLOY_EXTERNAL_LABELS_CLUSTER"), sys.env("ALLOY_CONSTANTS_HOSTNAME"), constants.hostname),
 	}
 }
 
