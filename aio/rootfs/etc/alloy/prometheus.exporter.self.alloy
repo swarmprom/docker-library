@@ -1,0 +1,8 @@
+prometheus.exporter.self "alloy" { }
+
+prometheus.scrape "alloy_metrics" {
+	scrape_interval = "30s"
+	scrape_timeout  = "5s"
+	targets         = prometheus.exporter.self.alloy.targets
+	forward_to      = [prometheus.relabel.rules.receiver]
+}

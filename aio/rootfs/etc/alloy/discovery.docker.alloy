@@ -1,0 +1,39 @@
+discovery.docker "system" {
+	host             = "unix:///var/run/docker.sock"
+	refresh_interval = "10s"
+}
+
+discovery.relabel "docker" {
+	targets = discovery.docker.system.targets
+
+	rule {
+		target_label = "instance"
+		replacement  = coalesce(sys.env("ALLOY_CONSTANTS_HOSTNAME"), constants.hostname)
+	}
+
+	rule {
+		target_label = "platform"
+		replacement  = "docker"
+	}
+
+	rule {
+		source_labels = ["__meta_docker_container_name"]
+		target_label  = "service_name"
+		regex         = "/(.+)"
+	}
+
+	rule {
+		action = "labelmap"
+		regex  = "__meta_docker_(container_label_org_opencontainers_.+)"
+	}
+
+	rule {
+		action = "labelmap"
+		regex  = "__meta_docker_(container_label_com_docker_compose_.+)"
+	}
+
+	rule {
+		action = "labelmap"
+		regex  = "__meta_docker_(container_label_com_docker_stack_.+|container_label_com_docker_swarm_.+)"
+	}
+}

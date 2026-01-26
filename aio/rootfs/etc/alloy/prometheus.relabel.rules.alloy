@@ -1,0 +1,8 @@
+prometheus.relabel "rules" {
+	forward_to = [prometheus.remote_write.local.receiver]
+
+	rule {
+		target_label = "instance"
+		replacement  = coalesce(sys.env("ALLOY_CONSTANTS_HOSTNAME"), constants.hostname)
+	}
+}

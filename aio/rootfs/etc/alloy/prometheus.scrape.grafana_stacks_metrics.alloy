@@ -1,0 +1,11 @@
+prometheus.scrape "grafana_stacks_metrics" {
+	scrape_interval = "30s"
+	scrape_timeout  = "5s"
+	targets         = [
+		{"__address__" = "127.0.0.1:3000", "job" = "prometheus.scrape.grafana"},
+		{"__address__" = "127.0.0.1:3100", "job" = "prometheus.scrape.loki"},
+		{"__address__" = "127.0.0.1:3200", "job" = "prometheus.scrape.pyroscope"},
+		{"__address__" = "127.0.0.1:4040", "job" = "prometheus.scrape.tempo"},
+	]
+	forward_to = [prometheus.relabel.rules.receiver]
+}

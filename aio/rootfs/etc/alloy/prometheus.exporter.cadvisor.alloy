@@ -1,0 +1,12 @@
+prometheus.exporter.cadvisor "system" {
+	docker_host      = "unix:///var/run/docker.sock"
+	docker_only      = true
+	storage_duration = "15m"
+}
+
+prometheus.scrape "cadvisor_metrics" {
+	scrape_interval = "10s"
+	scrape_timeout  = "5s"
+	targets         = prometheus.exporter.cadvisor.system.targets
+	forward_to      = [prometheus.relabel.rules.receiver]
+}
