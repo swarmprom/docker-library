@@ -16,6 +16,9 @@ COPY --link --from=tempo / /
 
 ARG DOCKER_OTEL_LGTM_VERSION=v0.14.0
 ADD https://raw.githubusercontent.com/grafana/docker-otel-lgtm/refs/tags/${DOCKER_OTEL_LGTM_VERSION}/docker/grafana-datasources.yaml /etc/grafana/provisioning/datasources/otel-lgtm.yaml
+ADD https://raw.githubusercontent.com/grafana/docker-otel-lgtm/refs/tags/${DOCKER_OTEL_LGTM_VERSION}/docker/grafana-dashboard-jvm-metrics.json /etc/otel-lgtm/dashboards/jvm-metrics.json
+ADD https://raw.githubusercontent.com/grafana/docker-otel-lgtm/refs/tags/${DOCKER_OTEL_LGTM_VERSION}/docker/grafana-dashboard-red-metrics-classic.json /etc/otel-lgtm/dashboards/red-metrics-classic.json
+ADD https://raw.githubusercontent.com/grafana/docker-otel-lgtm/refs/tags/${DOCKER_OTEL_LGTM_VERSION}/docker/grafana-dashboard-red-metrics-native.json /etc/otel-lgtm/dashboards/red-metrics-native.json
 
 # blackbox-exporter
 # EXPOSE 9115/tcp
