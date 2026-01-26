@@ -7,7 +7,7 @@ FROM ${DOCKERHUB}/grafana/alloy:v${ALLOY_VERSION} AS alloy
 FROM scratch AS rootfs
 ADD rootfs /
 COPY --from=alloy /bin/alloy /usr/local/bin/alloy
-COPY --from=alloy /etc/alloy/config.alloy /etc/alloy/config.alloy
+# COPY --from=alloy /etc/alloy/config.alloy /etc/alloy/config.alloy
 
 # final image
 FROM base
