@@ -6,7 +6,7 @@ livedebugging {
 	enabled = true
 }
 
-pyroscope.write "endpoint" {
+pyroscope.write "local" {
 	endpoint {
 		url = "http://127.0.0.1:4040"
 	}
@@ -52,7 +52,7 @@ discovery.relabel "docker" {
 	}
 }
 
-pyroscope.ebpf "instance" {
-	forward_to = [pyroscope.write.endpoint.receiver]
+pyroscope.ebpf "docker" {
+	forward_to = [pyroscope.write.local.receiver]
 	targets    = discovery.relabel.docker.output
 }

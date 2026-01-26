@@ -113,6 +113,7 @@ target "images" {
       "alloy",
       "blackbox-exporter",
       "docker-collector",
+      "docker-ebpf-collector",
       "grafana",
       "loki",
       "node-exporter",
@@ -120,7 +121,6 @@ target "images" {
       "prometheus",
       "pushgateway",
       "pyroscope",
-      "pyroscope-alloy-ebpf",
       "tempo",
     ]
   }
@@ -142,6 +142,7 @@ target "rootfs" {
       "alloy",
       "blackbox-exporter",
       "docker-collector",
+      "docker-ebpf-collector",
       "grafana",
       "loki",
       "node-exporter",
@@ -149,7 +150,6 @@ target "rootfs" {
       "prometheus",
       "pushgateway",
       "pyroscope",
-      "pyroscope-alloy-ebpf",
       "tempo",
       "ubuntu",
     ]
