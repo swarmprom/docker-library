@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+source /var/grafana/default
+exec 2>&1
+exec grafana-run
